@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Nghịch Hỏa Tinh Đồ</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -25,7 +25,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
 .header-sub{display:flex;justify-content:space-between;font-size:12px;color:#6a7a90;margin-top:6px;flex-wrap:wrap;gap:4px}
 .container{max-width:920px;margin:0 auto;padding:12px 12px 70px}
 .tabs{display:flex;gap:3px;margin-bottom:12px;flex-wrap:wrap}
-.tab-btn{padding:9px 16px;border:none;border-radius:6px 6px 0 0;background:#1a2540;color:#8899b0;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.2s;flex:1;min-width:60px;text-align:center}
+.tab-btn{padding:9px 16px;border:none;border-radius:6px 6px 0 0;background:#1a2540;color:#8899b0;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.2s;flex:1;min-width:60px;text-align:center;user-select:none}
 .tab-btn:hover{background:#1e3050;color:#c8d0e0}
 .tab-btn.active{background:#223a60;color:#e8d5a3;box-shadow:0 -2px 10px rgba(42,74,106,0.3)}
 .panel{display:none;animation:fadeIn 0.3s}
@@ -51,19 +51,23 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
 .btn-primary:hover{background:linear-gradient(135deg,#3a6a9a,#5a9ac5)}
 .btn-success{background:linear-gradient(135deg,#2a7a4a,#4aaa6a);color:#fff;box-shadow:0 4px 12px rgba(42,122,74,0.3)}
 .btn-success:hover{background:linear-gradient(135deg,#3a8a5a,#5aba7a)}
-.btn-danger{background:linear-gradient(135deg,#8a2a2a,#b54a4a);color:#fff;box-shadow:0 4px 12px rgba(138,42,42,0.3)}
+.btn-danger{background:linear-gradient(135deg,#8a2a2a;#b54a4a);color:#fff;box-shadow:0 4px 12px rgba(138,42,42,0.3)}
 .btn-danger:hover{background:linear-gradient(135deg,#9a3a3a,#c55a5a)}
 .btn-warning{background:linear-gradient(135deg,#8a7a2a,#b5a54a);color:#fff}
 .btn-gold{background:linear-gradient(135deg,#8a6a2a,#c5a54a);color:#fff;box-shadow:0 4px 12px rgba(138,106,42,0.3)}
 .btn-gold:hover{background:linear-gradient(135deg,#9a7a3a,#d5b55a)}
 .btn-jade{background:linear-gradient(135deg,#6a2a8a,#9a5ab5);color:#fff;box-shadow:0 4px 12px rgba(106,42,138,0.3)}
 .btn-jade:hover{background:linear-gradient(135deg,#7a3a9a,#aa6ac5)}
+.btn-cyan{background:linear-gradient(135deg,#2a6a7a,#4aaab5);color:#fff;box-shadow:0 4px 12px rgba(42,106,122,0.3)}
+.btn-cyan:hover{background:linear-gradient(135deg,#3a7a8a,#5abac5)}
 .btn-sm{padding:5px 12px;font-size:11px}
 .btn-lg{padding:12px 28px;font-size:15px}
 .btn-block{width:100%}
 .btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
 .btn-outline{background:transparent;border:1px solid #2a4a6a;color:#8899b0}
 .btn-outline:hover{background:#1a2540;border-color:#4a6a8a}
+.btn-shop{background:linear-gradient(135deg,#3a5a3a,#5a8a5a);color:#fff;box-shadow:0 4px 12px rgba(58,90,58,0.3)}
+.btn-shop:hover{background:linear-gradient(135deg,#4a6a4a,#6a9a6a)}
 .cultivate-area{text-align:center;padding:16px}
 .cultivate-btn{width:110px;height:110px;border-radius:50%;border:3px solid #4a8ab5;background:radial-gradient(circle at 30% 30%,#1e3050,#0f1a2a);color:#e8d5a3;font-size:17px;font-weight:700;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden;box-shadow:0 0 25px rgba(74,138,181,0.2)}
 .cultivate-btn:hover{transform:scale(1.05);border-color:#6ac0e0;box-shadow:0 0 35px rgba(74,138,181,0.4)}
@@ -81,12 +85,13 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
-@media(max-width:580px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.grid-shop{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:580px){.grid-2,.grid-3,.grid-4,.grid-shop{grid-template-columns:1fr}}
 .item-card{background:#0f1320;border:1px solid #1a2a3a;border-radius:8px;padding:10px;text-align:center}
 .item-card .item-name{color:#e8d5a3;font-weight:600;font-size:13px}
 .item-card .item-desc{color:#6a7a90;font-size:11px;margin:3px 0}
 .item-card .item-count{color:#4a8ab5;font-size:12px;font-weight:600}
-.tribulation-box{border:2px solid #8a6a2a;border-radius:10px;padding:14px;background:linear-gradient(135deg,rgba(138,106,42,0.1),rgba(138,106,42,0.05));text-align:center;margin-top:12px}
+.tribulation-box{border:2px solid #8a6a2a;border-radius:10px;padding:14px;background:linear-gradient(135deg,rgba(138,106,42,0.15),rgba(138,106,42,0.05));text-align:center;margin-top:12px}
 .tribulation-box .chance{font-size:22px;font-weight:700;color:#e8d5a3}
 .tribulation-box .chance-label{font-size:12px;color:#8899b0}
 .tribulation-box .chance-bar{height:5px;background:#0b0e1a;border-radius:3px;margin:8px 0;overflow:hidden}
@@ -108,7 +113,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
 .toast-event{background:#2a1a3a;border:1px solid #5a2a6a;color:#c58ac5}
 @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
 .save-indicator{position:fixed;bottom:10px;right:12px;font-size:10px;color:#4a5a6a;z-index:10}
-.rebirth-box{border:2px solid #8a4a8a;border-radius:10px;padding:14px;text-align:center;background:linear-gradient(135deg,rgba(138,74,138,0.1),rgba(138,74,138,0.05));margin-top:12px}
+.rebirth-box{border:2px solid #8a4a8a;border-radius:10px;padding:14px;text-align:center;background:linear-gradient(135deg,rgba(138,74,138,0.15),rgba(138,74,138,0.05));margin-top:12px}
 .rebirth-box .title{color:#c58ac5;font-size:15px;font-weight:700;margin-bottom:6px}
 .rebirth-box .desc{color:#8899b0;font-size:12px;margin-bottom:8px}
 .boss-area{text-align:center;padding:10px;border:1px solid #6a2a2a;border-radius:10px;background:linear-gradient(135deg,rgba(138,42,42,0.08),rgba(138,42,42,0.03));margin-top:8px}
@@ -126,6 +131,23 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
 .skill-card .skill-name{font-size:13px;font-weight:600;color:#e8d5a3}
 .skill-card .skill-desc{font-size:11px;color:#6a7a90;margin:3px 0}
 .skill-card .skill-cd{font-size:10px;color:#5a7a9a}
+.shop-card{background:#0f1320;border:1px solid #3a5a3a;border-radius:8px;padding:10px;text-align:center;transition:all 0.2s}
+.shop-card:hover{border-color:#5a8a5a}
+.shop-card .shop-icon{font-size:22px}
+.shop-card .shop-name{font-size:13px;font-weight:600;color:#e8d5a3;margin:2px 0}
+.shop-card .shop-desc{font-size:10px;color:#6a7a90;margin:1px 0}
+.shop-card .shop-price{font-size:11px;color:#7ad8a0;font-weight:600}
+.shop-card .shop-price-jade{color:#c58ac5}
+.shop-card .btn-shop-buy{padding:4px 10px;font-size:11px;margin-top:3px}
+.overflow-exp{font-size:11px;color:#7ad8a0;margin-top:2px;font-weight:600}
+.notice-box{font-size:10px;color:#4a5a6a;padding:6px 10px;background:#0b0e1a;border:1px solid #1a2a3a;border-radius:6px;margin-top:8px;text-align:center;line-height:1.4}
+.trib-help{font-size:10px;color:#6a7a90;padding:4px;margin-top:4px;border-top:1px solid rgba(138,106,42,0.2)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(196,165,74,0.4)}50%{box-shadow:0 0 0 12px rgba(196,165,74,0)}}
+@keyframes floatUp{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-35px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px rgba(196,165,74,0.2)}50%{box-shadow:0 0 18px rgba(196,165,74,0.5)}}
+.btn-glow{animation:glow 2s ease-in-out infinite}
+.insufficient{color:#d87a7a;font-size:10px}
+.section-divider{border:none;border-top:1px solid #2a3a5a;margin:10px 0}
 @media(max-width:480px){
   .header-title{font-size:17px}
   .realm-name{font-size:22px}
@@ -149,6 +171,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
   <div class="header-sub">
     <span>⏱ <span id="playTime">00:00:00</span></span>
     <span>💾 <span id="saveStatus">Đã lưu</span></span>
+    <span id="vercelNotice" style="display:none;color:#4a5a6a">🌐 Lưu offline</span>
   </div>
 </div>
 
@@ -169,10 +192,11 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
         <div class="exp-bar-fill" id="expBar" style="width:0%"></div>
         <div class="exp-bar-text" id="expBarPct">0%</div>
       </div>
+      <div id="overflowExp" class="overflow-exp" style="display:none"></div>
     </div>
-    <!-- NÚT ĐỘT PHÁ NỔI — hiện khi ở T9 hoặc T10 -->
+    <!-- Floating breakthrough button -->
     <div id="floatingBreakthrough" style="display:none;margin-top:10px;text-align:center">
-      <button class="btn btn-gold btn-lg" onclick="scrollToTribulation()" style="font-size:16px;padding:12px 30px;animation:pulse 1.5s infinite">
+      <button class="btn btn-gold btn-lg btn-glow" onclick="scrollToTribulation()" style="font-size:16px;padding:12px 30px">
         ⚡ ĐỘT PHÁ SẴN SÀNG — Kéo xuống để phá kiếp! ⚡
       </button>
     </div>
@@ -216,6 +240,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
           <button class="btn btn-gold" onclick="attemptTribulation()">⚡ Đột Phá!</button>
           <button class="btn btn-sm btn-primary" onclick="usePillForTribulation()">💊 Dùng đan</button>
         </div>
+        <div id="tribFallbackDebug" class="trib-help" style="display:none"></div>
       </div>
     </div>
     <div id="announcements"></div>
@@ -239,6 +264,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
         </div>
         <div style="font-size:11px;color:#7a5a5a;margin-bottom:6px" id="huntDiminish"></div>
         <button class="btn btn-lg btn-danger" onclick="huntMonster()">⚔️ Săn!</button>
+        <div style="font-size:10px;color:#4a5a6a;margin-top:4px">Đã săn: <span id="totalHunts">0</span> con</div>
       </div>
     </div>
     <div class="card" id="bossSection">
@@ -260,7 +286,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
     <div class="card">
       <div class="card-title">📜 Kỹ năng tu tiên</div>
       <div style="font-size:12px;color:#6a7a90;margin-bottom:8px">
-        Trang bị kỹ năng chủ động để dùng khi tu luyện / săn quái. 
+        Trang bị kỹ năng chủ động để dùng khi tu luyện / săn quái.
         Mỗi kỹ năng có thời gian hồi (cooldown) riêng.
       </div>
       <div class="grid-2" id="skillGrid"></div>
@@ -295,7 +321,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
     </div>
   </div>
 
-  <!-- ======================= TAB 5: ĐỘNG PHỦ ======================= -->
+  <!-- ======================= TAB 5: ĐỘNG PHỦ + SHOP ======================= -->
   <div class="panel" id="panel-cave">
     <div class="grid-2">
       <div class="card">
@@ -304,7 +330,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
           <div style="font-size:32px">🏯</div>
           <div style="font-size:15px;color:#e8d5a3;font-weight:600">Cấp <span id="caveLevel">1</span></div>
           <div id="caveBonus" style="font-size:12px;color:#8899b0;margin:4px 0">+5% EXP idle · +0% luyện đan</div>
-          <button class="btn btn-primary btn-block" onclick="upgradeCave()" id="caveUpgradeBtn">⬆ Nâng cấp (5 đá)</button>
+          <button class="btn btn-primary btn-block" onclick="upgradeCave()" id="caveUpgradeBtn">⬆ Nâng cấp (5💎)</button>
         </div>
       </div>
       <div class="card">
@@ -318,6 +344,21 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
         </div>
       </div>
     </div>
+
+    <!-- ===== SHOP ===== -->
+    <div class="card">
+      <div class="card-title">🛒 Linh Thạch Điện — Cửa Hàng</div>
+      <div style="font-size:11px;color:#6a7a90;margin-bottom:8px">Dùng Linh Thạch 💎 hoặc Tiên Ngọc 🔮 để mua vật phẩm</div>
+
+      <div style="font-size:12px;color:#7ad8a0;font-weight:600;margin-bottom:6px">💰 Linh Thạch (💎)</div>
+      <div class="grid-shop" id="shopGrid"></div>
+
+      <hr class="section-divider">
+
+      <div style="font-size:12px;color:#c58ac5;font-weight:600;margin-bottom:6px">💎 Tiên Ngọc (🔮)</div>
+      <div class="grid-shop" id="jadeShopGrid"></div>
+    </div>
+
     <div class="card" id="rebirthSection" style="display:none">
       <div class="rebirth-box">
         <div class="title">♾️ Chuyển Sinh</div>
@@ -328,13 +369,23 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradi
     </div>
   </div>
 
+  <!-- Vercel notice -->
+  <div class="notice-box" id="vercelNoticeBox" style="display:none">
+    🌐 <strong>Lưu ý:</strong> Dữ liệu lưu trên trình duyệt (localStorage),
+    không đồng bộ giữa các thiết bị. Bản Vercel và local là riêng biệt.
+  </div>
+  <div class="notice-box">
+    💡 <strong>Mẹo:</strong> Săn yêu thú để kiếm 💎 Linh Thạch → mua kỹ năng & nâng cấp động phủ.
+    Space = tu luyện nhanh.
+  </div>
+
 </div>
 
 <div class="save-indicator" id="saveIndicator">⏺ Đã lưu</div>
 
 <script>
 // ====================================================================
-// NGHỊCH HỎA TINH ĐỒ — GAME ENGINE v2
+// NGHỊCH HỎA TINH ĐỒ — GAME ENGINE v3 (Fixed + Shop)
 // ====================================================================
 
 // ===== CONSTANTS =====
@@ -349,7 +400,7 @@ const REALMS = [
   { name: 'Đại Thừa',    exp: [402,451,505,565,633,709,794,889,996,1116] }
 ];
 const MAX_REALM = REALMS.length - 1;
-const MAX_TIER = 9;
+const MAX_TIER = 9;  // 0-indexed, so tiers 0-9 = 10 tiers
 
 const PILL_TYPES = [
   { id:'tuKhi', name:'Tụ Khí Đan', desc:'+50 EXP', expVal:50, herbCost:3, minRealm:0, successRate:0.85, color:'#4a8ab5' },
@@ -396,8 +447,27 @@ const LOOT_ITEMS = [
   { id:'longHuyet', name:'Long Huyết', type:'material', desc:'Tăng 100 EXP khi dùng', expVal:100 }
 ];
 
+// ===== SHOP ITEMS =====
+const SHOP_ITEMS = [
+  { id:'herbs3', name:'🌿 Linh Dược ×3', desc:'3 linh dược', cost:8, currency:'stone', effect:()=>{ G.herbs+=3; } },
+  { id:'herbs10', name:'🌿 Linh Dược ×10', desc:'10 linh dược', cost:25, currency:'stone', effect:()=>{ G.herbs+=10; } },
+  { id:'tuKhiPill', name:'💊 Tụ Khí Đan ×1', desc:'+50 EXP', cost:20, currency:'stone', effect:()=>{ G.pills.tuKhi=(G.pills.tuKhi||0)+1; } },
+  { id:'tuNguyenPill', name:'💊 Tụ Nguyên Đan ×1', desc:'+200 EXP', cost:80, currency:'stone', effect:()=>{ G.pills.tuNguyen=(G.pills.tuNguyen||0)+1; } },
+  { id:'expScroll100', name:'📜 Linh Phù EXP', desc:'+100 EXP ngay', cost:30, currency:'stone', effect:()=>{ addExp(100); } },
+  { id:'expScroll300', name:'📜 Thần Phù EXP', desc:'+300 EXP ngay', cost:80, currency:'stone', effect:()=>{ addExp(300); } },
+  { id:'petFood3', name:'🍖 Thức Ăn ×3', desc:'Cho linh thú ăn', cost:12, currency:'stone', effect:()=>{ let f=20+Math.floor(Math.random()*20); if(hasPassive('passivePet')) f=Math.round(f*1.2); G.petExp+=f*3; checkPetLevelUp(); } },
+];
+
+const JADE_SHOP_ITEMS = [
+  { id:'jadeTuNguyen', name:'💊 Tụ Nguyên Đan ×3', desc:'3 đan luyện khí', cost:3, currency:'jade', effect:()=>{ G.pills.tuNguyen=(G.pills.tuNguyen||0)+3; } },
+  { id:'jadeNgungThan', name:'💊 Ngưng Thần Đan ×2', desc:'2 đan hóa thần', cost:5, currency:'jade', effect:()=>{ G.pills.ngungThan=(G.pills.ngungThan||0)+2; } },
+  { id:'jadeExp500', name:'✨ Ngộ Đạo Đan', desc:'+500 EXP ngay', cost:10, currency:'jade', effect:()=>{ addExp(500); } },
+  { id:'jadeRootBoost', name:'🌟 Linh Căn Phù (30p)', desc:'+0.2 hệ số linh căn 30 phút', cost:15, currency:'jade', effect:()=>{ G.rootBoostUntil=Math.max(G.rootBoostUntil||0,Date.now()+1800000); addAnnounce('🌟 Linh căn tăng 30 phút!','success'); } },
+];
+
 // ===== GAME STATE =====
 let G = null;
+let _debugTrib = false;  // debugging flag
 
 function defaultState() {
   return {
@@ -431,7 +501,9 @@ function defaultState() {
     bossHp:{},          // area index -> current HP
     lastBossFight:0,    // timestamp
     // Achievements (simple)
-    achievements:[]
+    achievements:[],
+    // Shop extras
+    rootBoostUntil:0,   // timestamp for temporary root boost
   };
 }
 
@@ -439,198 +511,361 @@ function defaultState() {
 function saveGame() {
   if(!G) return;
   G.lastSave=Date.now();
-  try{ localStorage.setItem('nghichHoaTinhDo',JSON.stringify(G));
+  try{
+    localStorage.setItem('nghichHoaTinhDo',JSON.stringify(G));
     document.getElementById('saveStatus').textContent='✅ Đã lưu';
     document.getElementById('saveIndicator').textContent='⏺ '+new Date().toLocaleTimeString();
-  }catch(e){}
+  }catch(e){ console.warn('Save failed:',e); }
 }
+
 function loadGame(){
   try{
     const raw=localStorage.getItem('nghichHoaTinhDo');
-    if(raw){ G=Object.assign(defaultState(),JSON.parse(raw)); return true; }
-  }catch(e){}
+    if(raw){
+      const parsed=JSON.parse(raw);
+      G=Object.assign(defaultState(),parsed);
+      // Ensure new fields exist
+      if(G.rootBoostUntil===undefined) G.rootBoostUntil=0;
+      console.log('✅ Loaded save. Realm:',REALMS[G.realm].name,'Tier:',G.tier+1,'EXP:',G.exp);
+      return true;
+    }
+  }catch(e){
+    console.error('Load error:',e);
+  }
   return false;
 }
 
 // ===== EXP HELPERS =====
-function getExpNeeded(realm,tier){ return (realm<0||realm>MAX_REALM)?Infinity:REALMS[realm].exp[tier]; }
+function getExpNeeded(realm,tier){
+  if(realm<0||realm>MAX_REALM||tier<0||tier>MAX_TIER) return Infinity;
+  return REALMS[realm].exp[tier];
+}
+
 function calcRealmTotalExp(){
   let t=0;
   for(let i=0;i<G.tier;i++) t+=getExpNeeded(G.realm,i);
   return t+G.exp;
 }
+
 function getSpiritRoot(){
-  const roots=[{name:'Phế',mult:0.8},{name:'Hạ phẩm',mult:0.9},{name:'Trung phẩm',mult:1.0},{name:'Thượng phẩm',mult:1.2},{name:'Cực phẩm',mult:1.4},{name:'Thiên linh căn',mult:1.6}];
-  return roots[Math.min(roots.length-1,G.rebirthCount)];
-}
-function getCultivateExpPerClick(){
-  const base=5,r=getSpiritRoot(),c=1+(G.caveLevel-1)*0.05,fluct=0.9+Math.random()*0.2;
-  return Math.round(base*r.mult*c*fluct);
-}
-function getIdleExpPerSecond(){
-  const base=5*0.65,r=getSpiritRoot(),c=1+(G.caveLevel-1)*0.05,rm=1+G.realm*0.05;
-  return base*r.mult*c*rm;
+  const roots=[
+    {name:'Phế',mult:0.8},
+    {name:'Hạ phẩm',mult:0.9},
+    {name:'Trung phẩm',mult:1.0},
+    {name:'Thượng phẩm',mult:1.2},
+    {name:'Cực phẩm',mult:1.4},
+    {name:'Thiên linh căn',mult:1.6}
+  ];
+  let idx=Math.min(roots.length-1,G.rebirthCount);
+  // Temporary boost
+  if(G.rootBoostUntil && Date.now()<G.rootBoostUntil) idx=Math.min(roots.length-1,idx+1);
+  return roots[idx];
 }
 
-// ===== ADD EXP (v2: only auto T1→T8, T9+ need trib) =====
+function getCultivateExpPerClick(){
+  const base=5, r=getSpiritRoot(), c=1+(G.caveLevel-1)*0.05, fluct=0.9+Math.random()*0.2;
+  return Math.round(base * r.mult * c * fluct);
+}
+
+function getIdleExpPerSecond(){
+  const base=5*0.65, r=getSpiritRoot(), c=1+(G.caveLevel-1)*0.05, rm=1+G.realm*0.05;
+  return base * r.mult * c * rm;
+}
+
+// ===== ADD EXP (Fixed: ensure tribulation check fires) =====
 function addExp(amount){
-  if(amount<=0) return;
-  G.exp+=amount; G.totalExpEarned+=amount; G.totalRealmExp+=amount;
-  let adv=false;
-  while(G.tier<MAX_TIER-1){
-    const n=getExpNeeded(G.realm,G.tier);
-    if(G.exp>=n){ G.exp-=n; G.tier++; adv=true; addAnnounce(`⬆ ${REALMS[G.realm].name} Tầng ${G.tier+1}!`,'success'); }
-    else break;
+  try{
+    if(!G || amount<=0) return;
+    G.exp+=amount;
+    G.totalExpEarned+=amount;
+    G.totalRealmExp+=amount;
+
+    let adv=false;
+    // Auto-advance only through Tiers 1-8 (indices 0-7).
+    // Tier 9 (index 8) and Tier 10 (index 9) require tribulation.
+    while(G.tier < MAX_TIER - 1){  // tier < 8
+      const n=getExpNeeded(G.realm, G.tier);
+      if(G.exp >= n){
+        G.exp -= n;
+        G.tier++;
+        adv=true;
+        addAnnounce(`⬆ ${REALMS[G.realm].name} Tầng ${G.tier+1}!`,'success');
+      } else {
+        break;
+      }
+    }
+
+    updateUI();
+
+    // Always check tribulation status, not just on adv
+    // This ensures the tribulation section shows even on reload or when
+    // player is already at tier 8/9 and accumulating overflow EXP
+    checkTribulationStatus();
+
+    if(adv){
+      console.log('⚡ Advanced to tier',G.tier+1,'(index',G.tier+')');
+    }
+  }catch(e){
+    console.error('addExp error:',e);
   }
-  updateUI();
-  if(adv) checkTribulationStatus();
 }
 
 // ===== CULTIVATE =====
 let lastCultivateTime=0;
 function cultivate(){
-  if(!G||Date.now()-lastCultivateTime<300) return;
+  if(!G || Date.now()-lastCultivateTime<300) return;
   lastCultivateTime=Date.now();
-  let exp=getCultivateExpPerClick();
 
-  // Active skill bonus
-  const sk=getEquippedSkill();
-  if(sk&&sk.bonusExp&&Date.now()>G.skillCooldown) exp=Math.round(exp*(1+sk.bonusExp));
+  try{
+    let exp=getCultivateExpPerClick();
 
-  if(Math.random()<0.08){ exp=Math.round(exp*1.5); addAnnounce(`✨ Đốn ngộ! +${exp} EXP!`,'event'); }
-  addExp(exp);
-  const btn=document.getElementById('cultivateBtn');
-  const rip=document.createElement('span'); rip.className='ripple';
-  const s=Math.max(btn.offsetWidth,btn.offsetHeight);
-  rip.style.cssText=`width:${s}px;height:${s}px;left:${btn.offsetWidth/2-s/2}px;top:${btn.offsetHeight/2-s/2}px`;
-  btn.appendChild(rip); setTimeout(()=>rip.remove(),600);
-  showFloat(exp);
+    // Active skill bonus
+    const sk=getEquippedSkill();
+    if(sk && sk.bonusExp && Date.now()>G.skillCooldown)
+      exp=Math.round(exp*(1+sk.bonusExp));
+
+    // Random enlightenment
+    if(Math.random()<0.08){
+      exp=Math.round(exp*1.5);
+      addAnnounce(`✨ Đốn ngộ! +${exp} EXP!`,'event');
+    }
+
+    addExp(exp);
+
+    // Ripple effect
+    const btn=document.getElementById('cultivateBtn');
+    if(btn){
+      const rip=document.createElement('span');
+      rip.className='ripple';
+      const s=Math.max(btn.offsetWidth,btn.offsetHeight);
+      rip.style.cssText=`width:${s}px;height:${s}px;left:${btn.offsetWidth/2-s/2}px;top:${btn.offsetHeight/2-s/2}px`;
+      btn.appendChild(rip);
+      setTimeout(()=>rip.remove(),600);
+    }
+    showFloat(exp);
+  }catch(e){
+    console.error('cultivate error:',e);
+  }
 }
+
 function showFloat(exp){
   const btn=document.getElementById('cultivateBtn');
+  if(!btn) return;
   const el=document.createElement('div');
   el.textContent='+'+exp+' EXP';
   el.style.cssText='position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:700;color:#6ac0e0;pointer-events:none;animation:floatUp 1s ease-out;text-shadow:0 0 10px rgba(74,138,181,0.5)';
-  btn.appendChild(el); setTimeout(()=>el.remove(),1000);
+  btn.appendChild(el);
+  setTimeout(()=>el.remove(),1000);
 }
 
 // ===== AUTO/IDLE =====
-function toggleAuto(){ G.autoCultivate=!G.autoCultivate; document.getElementById('autoToggle').classList.toggle('active',G.autoCultivate); saveGame(); }
+function toggleAuto(){
+  G.autoCultivate=!G.autoCultivate;
+  document.getElementById('autoToggle').classList.toggle('active',G.autoCultivate);
+  saveGame();
+}
 
 function processIdle(){
   if(!G) return;
-  const now=Date.now();
-  const elapsed=(now-G.lastIdleCalc)/1000;
-  if(elapsed<1) return;
-  G.lastIdleCalc=now;
+  try{
+    const now=Date.now();
+    const elapsed=(now - G.lastIdleCalc) / 1000;
+    if(elapsed<1) return;
+    G.lastIdleCalc=now;
 
-  // Idle exp
-  const rate=getIdleExpPerSecond();
-  let idleExp=rate*elapsed;
-  const maxIdle=rate*28800;
-  if(idleExp>maxIdle) idleExp=maxIdle;
-  if(idleExp>30) addAnnounce(`⏳ Linh khí tụ đến! +${Math.round(idleExp)} EXP`,'info');
-  if(idleExp>0) addExp(Math.round(idleExp));
+    // Idle EXP (60-70% of active)
+    const rate=getIdleExpPerSecond();
+    let idleExp=rate*elapsed;
+    const maxIdle=rate*28800; // 8-hour cap
+    if(idleExp>maxIdle) idleExp=maxIdle;
+    if(idleExp>30) addAnnounce(`⏳ Linh khí tụ đến! +${Math.round(idleExp)} EXP`,'info');
+    if(idleExp>0) addExp(Math.round(idleExp));
 
-  // Auto cultivate
-  if(G.autoCultivate){ const auto=rate*elapsed*1.2; addExp(Math.round(auto)); }
+    // Auto cultivate (bonus on top of idle)
+    if(G.autoCultivate){
+      const auto=rate*elapsed*1.2;
+      addExp(Math.round(auto));
+    }
 
-  // Herb auto gather (every 30s)
-  const hElapsed=(now-G.lastHerbGather)/1000;
-  if(hElapsed>=30){
-    const cycles=Math.floor(hElapsed/30);
-    for(let i=0;i<Math.min(cycles,20);i++){ const g=1+Math.floor(Math.random()*3); G.herbs+=g; }
-    G.lastHerbGather+=cycles*30000;
+    // Herb auto gather (every 30s)
+    const hElapsed=(now - G.lastHerbGather) / 1000;
+    if(hElapsed>=30){
+      const cycles=Math.floor(hElapsed/30);
+      for(let i=0; i<Math.min(cycles,20); i++){
+        G.herbs+=1+Math.floor(Math.random()*3);
+      }
+      G.lastHerbGather += cycles*30000;
+    }
+
+    // Pet idle EXP
+    if(G.petLevel>0){
+      G.petExp += 0.05 * G.petLevel * (elapsed/60);
+      checkPetLevelUp();
+    }
+
+    updateUI();
+  }catch(e){
+    console.error('processIdle error:',e);
   }
-
-  // Pet idle
-  if(G.petLevel>0){ G.petExp+=0.05*G.petLevel*(elapsed/60); checkPetLevelUp(); }
-
-  // Boss cooldown
-  // (no passive action needed)
-
-  updateUI();
 }
 
-// ===== TRIBULATION =====
+// ===== TRIBULATION (Fixed: robust try-catch, debug logging) =====
 function checkTribulationStatus(){
-  const sec=document.getElementById('tribulationSection');
-  const floatBtn=document.getElementById('floatingBreakthrough');
-  if(G.tier===8||(G.tier===9&&G.realm<MAX_REALM)){
-    if(G.realm>=MAX_REALM){ sec.style.display='none'; floatBtn.style.display='none'; document.getElementById('rebirthSection').style.display='block'; return; }
-    sec.style.display='block';
-    floatBtn.style.display='block';
-    if(G.tier===8) renderSmallTrib(); else renderGreatTrib();
-  }else{
-    sec.style.display='none';
-    floatBtn.style.display='none';
+  try{
+    const sec=document.getElementById('tribulationSection');
+    const floatBtn=document.getElementById('floatingBreakthrough');
+    const debugEl=document.getElementById('tribFallbackDebug');
+
+    if(!sec || !floatBtn){
+      console.warn('⚠️ Tribulation UI elements missing');
+      return;
+    }
+
+    if(!G){
+      sec.style.display='none';
+      floatBtn.style.display='none';
+      return;
+    }
+
+    const isAtTribTier = (G.tier === 8) || (G.tier === 9 && G.realm < MAX_REALM);
+
+    if(isAtTribTier){
+      // Check if already at max realm with tier 10 — that's rebirth, not tribulation
+      if(G.realm >= MAX_REALM && G.tier >= MAX_TIER){
+        sec.style.display='none';
+        floatBtn.style.display='none';
+        document.getElementById('rebirthSection').style.display='block';
+        console.log('♾️ Rebirth available');
+        return;
+      }
+
+      sec.style.display='block';
+      floatBtn.style.display='block';
+
+      if(G.tier === 8){
+        renderSmallTrib();
+        console.log('⚡ Small Tribulation shown (Tier 9→10)');
+      } else {
+        renderGreatTrib();
+        console.log('💀 Great Tribulation shown (T10→next realm)');
+      }
+
+      // Debug info
+      if(debugEl){
+        debugEl.style.display='block';
+        debugEl.textContent=`🔍 Debug: realm=${G.realm} (${REALMS[G.realm].name}), tier=${G.tier}, areaRealm=${G.realm>=MAX_REALM?'MAX':'ok'}`;
+      }
+    } else {
+      sec.style.display='none';
+      floatBtn.style.display='none';
+      if(debugEl) debugEl.style.display='none';
+    }
+  }catch(e){
+    console.error('checkTribulationStatus error:',e);
   }
 }
+
 function scrollToTribulation(){
   const sec=document.getElementById('tribulationSection');
-  if(sec){
-    sec.scrollIntoView({behavior:'smooth'});
-  }
+  if(sec) sec.scrollIntoView({behavior:'smooth'});
 }
-function getSmallTribChance(){ return Math.min(0.95,0.75+(G.pills.tuKhi||0)*0.03); }
-function getGreatTribChance(){ return Math.min(0.95,0.50+(G.pills.tuNguyen||0)*0.05+G.caveLevel*0.01); }
+
+function getSmallTribChance(){
+  return Math.min(0.95, 0.75 + (G.pills.tuKhi||0)*0.03);
+}
+
+function getGreatTribChance(){
+  return Math.min(0.95, 0.50 + (G.pills.tuNguyen||0)*0.05 + G.caveLevel*0.01);
+}
+
 function renderSmallTrib(){
   const c=getSmallTribChance();
   document.getElementById('tribulationType').innerHTML='⚡ <strong>Tiểu Kiếp</strong> — T9 → T10';
   document.getElementById('tribulationChance').textContent=Math.round(c*100);
   document.getElementById('tribulationChanceBar').style.width=(c*100)+'%';
-  document.getElementById('tribulationDetail').textContent=`Cơ sở 75% + ${G.pills.tuKhi} Tụ Khí Đan ×3%`;
+  document.getElementById('tribulationDetail').textContent=`Cơ sở 75% + ${G.pills.tuKhi||0} Tụ Khí Đan ×3%`;
 }
+
 function renderGreatTrib(){
   const c=getGreatTribChance();
-  document.getElementById('tribulationType').innerHTML='💀 <strong>Đại Kiếp</strong> → '+REALMS[G.realm+1].name;
+  const nextName=G.realm<MAX_REALM?REALMS[G.realm+1].name:'???';
+  document.getElementById('tribulationType').innerHTML='💀 <strong>Đại Kiếp</strong> → '+nextName;
   document.getElementById('tribulationChance').textContent=Math.round(c*100);
   document.getElementById('tribulationChanceBar').style.width=(c*100)+'%';
-  document.getElementById('tribulationDetail').textContent=`Cơ sở 50% + ${G.pills.tuNguyen} Đan×5% + Động Phủ Cấp ${G.caveLevel}×1%`;
+  document.getElementById('tribulationDetail').textContent=`Cơ sở 50% + ${G.pills.tuNguyen||0} Đan×5% + Động Phủ Cấp ${G.caveLevel}×1%`;
 }
+
 function attemptTribulation(){
-  if(G.tier===8){
-    const c=getSmallTribChance();
-    if(Math.random()<c){
-      addAnnounce(`🎉 Tiểu Kiếp thành công! ${REALMS[G.realm].name} Tầng 10!`,'success');
-      G.tier=9;
-      // keep EXP
-      updateUI(); checkTribulationStatus();
+  try{
+    if(G.tier === 8){
+      // Small trib T9→T10
+      const c=getSmallTribChance();
+      if(Math.random() < c){
+        addAnnounce(`🎉 Tiểu Kiếp thành công! ${REALMS[G.realm].name} Tầng 10!`,'success');
+        G.tier = 9;
+        updateUI();
+        checkTribulationStatus();
+      }else{
+        const loss=getExpNeeded(G.realm, G.tier) * (0.1+Math.random()*0.05);
+        G.exp = Math.max(0, G.exp - loss);
+        addAnnounce(`💥 Tiểu Kiếp thất bại! Mất ${Math.round(loss)} EXP`,'danger');
+        updateUI();
+      }
+    }else if(G.tier === 9 && G.realm < MAX_REALM){
+      // Great trib T10→next realm
+      const c=getGreatTribChance();
+      if(Math.random() < c){
+        const enlightenment = Math.min(500, 30 + G.realm*40);
+        G.realm++;
+        G.tier=0;
+        G.exp=0;
+        G.savedRealmExp=0;
+        G.totalRealmExp=0;
+        addAnnounce(`🎉🎉 Đại Kiếp thành công! Phi thăng ${REALMS[G.realm].name}! +${enlightenment} EXP Ngộ Đạo!`,'event');
+        addExp(enlightenment);
+        updateUI();
+        checkTribulationStatus();
+        G.huntCountThisHour=0;
+      }else{
+        const loss = (G.totalRealmExp||G.exp) * (0.3+Math.random()*0.2);
+        G.exp = Math.max(0, G.exp - loss);
+        G.totalRealmExp = Math.max(0, (G.totalRealmExp||0) - loss);
+        G.daoTam = Math.max(0, G.daoTam-10);
+        addAnnounce(`💀 Đại Kiếp thất bại! Mất ${Math.round(loss)} EXP!`,'danger');
+        updateUI();
+      }
     }else{
-      const loss=getExpNeeded(G.realm,G.tier)*(0.1+Math.random()*0.05);
-      G.exp=Math.max(0,G.exp-loss);
-      addAnnounce(`💥 Tiểu Kiếp thất bại! Mất ${Math.round(loss)} EXP`,'danger');
-      updateUI();
+      addAnnounce('❌ Không thể đột phá lúc này!','warning');
     }
-  }else if(G.tier===9&&G.realm<MAX_REALM){
-    const c=getGreatTribChance();
-    if(Math.random()<c){
-      const enlightenment=Math.min(500,30+G.realm*40);
-      G.realm++; G.tier=0; G.exp=0; G.savedRealmExp=0; G.totalRealmExp=0;
-      addAnnounce(`🎉🎉 Đại Kiếp thành công! Phi thăng ${REALMS[G.realm].name}! +${enlightenment} EXP Ngộ Đạo!`,'event');
-      addExp(enlightenment);
-      updateUI(); checkTribulationStatus();
-      G.huntCountThisHour=0;
-    }else{
-      const loss=G.totalRealmExp*(0.3+Math.random()*0.2);
-      G.exp=Math.max(0,G.exp-loss); G.totalRealmExp=Math.max(0,G.totalRealmExp-loss);
-      G.daoTam=Math.max(0,G.daoTam-10);
-      addAnnounce(`💀 Đại Kiếp thất bại! Mất ${Math.round(loss)} EXP!`,'danger');
-      updateUI();
-    }
+  }catch(e){
+    console.error('attemptTribulation error:',e);
+    addAnnounce('❌ Lỗi khi đột phá!','danger');
   }
 }
+
 function usePillForTribulation(){
-  if(G.tier===8&&G.pills.tuKhi>0){ G.pills.tuKhi--; addAnnounce('💊 Dùng Tụ Khí Đan +3%' ,'info'); renderSmallTrib(); saveGame(); }
-  else if(G.tier===9&&G.pills.tuNguyen>0){ G.pills.tuNguyen--; addAnnounce('💊 Dùng Tụ Nguyên Đan +5%','info'); renderGreatTrib(); saveGame(); }
-  else addAnnounce('❌ Không có đan phù hợp!','warning');
+  if(G.tier===8 && (G.pills.tuKhi||0)>0){
+    G.pills.tuKhi--;
+    addAnnounce('💊 Dùng Tụ Khí Đan +3%','info');
+    renderSmallTrib();
+    saveGame();
+  }else if(G.tier===9 && (G.pills.tuNguyen||0)>0){
+    G.pills.tuNguyen--;
+    addAnnounce('💊 Dùng Tụ Nguyên Đan +5%','info');
+    renderGreatTrib();
+    saveGame();
+  }else{
+    addAnnounce('❌ Không có đan phù hợp! Ghé Đan Dược hoặc Cửa Hàng để mua.','warning');
+  }
 }
 
 // ===== ADVENTURE AREAS =====
 function renderAreas(){
-  const grid=document.getElementById('areaGrid'); grid.innerHTML='';
+  const grid=document.getElementById('areaGrid');
+  if(!grid) return;
+  grid.innerHTML='';
   AREAS.forEach((a,i)=>{
-    const unlocked=G.realm>=a.minRealm||i<=G.currentArea;
+    const unlocked=G.realm>=a.minRealm || i<=G.currentArea;
     const active=i===G.currentArea;
     const div=document.createElement('div');
     div.className='area-card'+(active?' active':'')+(unlocked?'':' locked');
@@ -640,59 +875,79 @@ function renderAreas(){
     grid.appendChild(div);
   });
 }
-function getCurrentArea(){ return AREAS[Math.min(G.currentArea,AREAS.length-1)]; }
+
+function getCurrentArea(){ return AREAS[Math.min(G.currentArea, AREAS.length-1)]; }
 
 // ===== HUNTING =====
 function huntMonster(){
-  const now=Date.now();
-  if(now-G.huntHourTimestamp>3600000){ G.huntCountThisHour=0; G.huntHourTimestamp=now; }
-  const area=getCurrentArea();
-  let exp=area.expBase;
+  try{
+    const now=Date.now();
+    if(now - G.huntHourTimestamp > 3600000){
+      G.huntCountThisHour=0;
+      G.huntHourTimestamp=now;
+    }
 
-  // Skill bonus
-  const sk=getEquippedSkill();
-  if(sk&&sk.bonusExp&&now>G.skillCooldown) exp=Math.round(exp*(1+sk.bonusExp));
-  else if(sk&&sk.bonusAll&&now>G.skillCooldown) exp=Math.round(exp*(1+sk.bonusAll));
+    const area=getCurrentArea();
+    let exp=area.expBase;
 
-  // Diminishing returns
-  const dim=Math.pow(0.9,G.huntCountThisHour);
-  exp=Math.round(exp*dim); if(exp<1) exp=1;
+    // Skill bonus
+    const sk=getEquippedSkill();
+    if(sk && sk.bonusExp && now>G.skillCooldown)
+      exp=Math.round(exp*(1+sk.bonusExp));
+    else if(sk && sk.bonusAll && now>G.skillCooldown)
+      exp=Math.round(exp*(1+sk.bonusAll));
 
-  let stone=area.stoneBase;
-  if(sk&&sk.bonusStone&&now>G.skillCooldown) stone=Math.round(stone*(1+sk.bonusStone));
-  else if(sk&&sk.bonusAll&&now>G.skillCooldown) stone=Math.round(stone*(1+sk.bonusAll));
+    // Diminishing returns
+    const dim=Math.pow(0.9, G.huntCountThisHour);
+    exp=Math.round(exp*dim);
+    if(exp<1) exp=1;
 
-  // Passive stone bonus
-  if(hasPassive('passiveStone')) stone=Math.round(stone*1.15);
-  if(stone<1) stone=1;
+    let stone=area.stoneBase;
+    if(sk && sk.bonusStone && now>G.skillCooldown)
+      stone=Math.round(stone*(1+sk.bonusStone));
+    else if(sk && sk.bonusAll && now>G.skillCooldown)
+      stone=Math.round(stone*(1+sk.bonusAll));
 
-  let petBonus=0;
-  if(G.petLevel>0) petBonus=Math.round(exp*0.2);
+    // Passive stone bonus
+    if(hasPassive('passiveStone')) stone=Math.round(stone*1.15);
+    if(stone<1) stone=1;
 
-  G.totalHunts++; G.huntCountThisHour++;
-  G.spiritStones+=stone;
+    let petBonus=0;
+    if(G.petLevel>0) petBonus=Math.round(exp*0.2);
 
-  // Loot drop
-  let lootChance=area.lootChance;
-  if(sk&&sk.bonusLoot&&now>G.skillCooldown) lootChance*=2;
-  else if(sk&&sk.bonusAll&&now>G.skillCooldown) lootChance*=3;
-  let lootMsg='';
-  if(Math.random()<lootChance){
-    const item=LOOT_ITEMS[Math.floor(Math.random()*LOOT_ITEMS.length)];
-    G.inventory[item.id]=(G.inventory[item.id]||0)+1;
-    lootMsg=` 📦 +1 ${item.name}`;
+    G.totalHunts++;
+    G.huntCountThisHour++;
+    G.spiritStones+=stone;
+
+    // Loot
+    let lootChance=area.lootChance;
+    if(sk && sk.bonusLoot && now>G.skillCooldown) lootChance*=2;
+    else if(sk && sk.bonusAll && now>G.skillCooldown) lootChance*=3;
+    let lootMsg='';
+    if(Math.random()<lootChance){
+      const item=LOOT_ITEMS[Math.floor(Math.random()*LOOT_ITEMS.length)];
+      G.inventory[item.id]=(G.inventory[item.id]||0)+1;
+      lootMsg=` 📦 +1 ${item.name}`;
+    }
+
+    // Herb find
+    if(Math.random()<0.08){
+      const h=1+Math.floor(Math.random()*3);
+      G.herbs+=h;
+      lootMsg+=` 🌿+${h} dược`;
+    }
+
+    addAnnounce(`⚔️ Săn ${area.name}! +${exp} EXP +${stone}💎${lootMsg}`+(petBonus?` 🐉+${petBonus}`:''),'info');
+    addExp(exp+petBonus);
+
+    // Skill cooldown
+    if(sk && (sk.bonusExp||sk.bonusStone||sk.bonusLoot||sk.bonusAll) && now>G.skillCooldown)
+      G.skillCooldown = now + sk.cd*1000;
+
+    updateUI();
+  }catch(e){
+    console.error('huntMonster error:',e);
   }
-
-  // Herb find
-  if(Math.random()<0.08){ const h=1+Math.floor(Math.random()*3); G.herbs+=h; lootMsg+=` 🌿+${h} dược`; }
-
-  addAnnounce(`⚔️ Săn ${area.name}! +${exp} EXP +${stone}💎${lootMsg}`+(petBonus?` 🐉+${petBonus}`:''),'info');
-  addExp(exp+petBonus);
-
-  // Skill cooldown
-  if(sk&&(sk.bonusExp||sk.bonusStone||sk.bonusLoot||sk.bonusAll)&&now>G.skillCooldown) G.skillCooldown=now+sk.cd*1000;
-
-  updateUI();
 }
 
 // ===== BOSS =====
@@ -700,50 +955,62 @@ function getCurrentBoss(){
   const a=getCurrentArea();
   if(G.bossDefeated.includes(G.currentArea)) return null;
   return {
-    name:a.bossName, maxHp:a.bossHp,
-    hp:G.bossHp[G.currentArea]||a.bossHp,
-    exp:a.bossExp, stone:a.bossStone
+    name:a.bossName,
+    maxHp:a.bossHp,
+    hp:G.bossHp[G.currentArea] || a.bossHp,
+    exp:a.bossExp,
+    stone:a.bossStone
   };
 }
+
 function fightBoss(){
-  const now=Date.now();
-  if(now-G.lastBossFight<5000){ addAnnounce('⏳ Đợi 5s giữa các lần đánh boss!','warning'); return; }
-  const boss=getCurrentBoss();
-  if(!boss){ addAnnounce('✅ Boss đã bị đánh bại ở khu này!','success'); return; }
-  if(boss.hp<=0){ addAnnounce('✅ Boss đã chết!','success'); return; }
-
-  G.lastBossFight=now;
-
-  // Damage: base + realm bonus + skill bonus
-  let dmg=10+G.realm*5;
-  if(hasPassive('passiveBoss')) dmg=Math.round(dmg*1.15);
-  const sk=getEquippedSkill();
-  if(sk&&sk.bonusAll&&now>G.skillCooldown){ dmg=Math.round(dmg*3); G.skillCooldown=now+sk.cd*1000; }
-
-  boss.hp-=dmg;
-  G.bossHp[G.currentArea]=Math.max(0,boss.hp);
-
-  if(boss.hp<=0){
-    // Win!
-    const expReward=boss.exp,stoneReward=boss.stone;
-    G.spiritStones+=stoneReward;
-    G.bossDefeated.push(G.currentArea);
-    // Random jade
-    const jadeReward=1+Math.floor(Math.random()*5);
-    G.jade+=jadeReward;
-    addAnnounce(`🏆🎉 ĐÁNH BẠI ${boss.name}! Nhận +${expReward} EXP +${stoneReward}💎 +${jadeReward}🔮!`,'event');
-    addExp(expReward);
-
-    // Free unlock nearby area
-    if(G.currentArea+1<AREAS.length){
-      const nextArea=AREAS[G.currentArea+1];
-      // No unlock mechanic needed - areas are realm-gated anyway
+  try{
+    const now=Date.now();
+    if(now - G.lastBossFight < 5000){
+      addAnnounce('⏳ Đợi 5s giữa các lần đánh boss!','warning');
+      return;
     }
-  }else{
-    const hpPct=Math.round(boss.hp/boss.maxHp*100);
-    addAnnounce(`⚔️ Đánh ${boss.name}: -${dmg} HP (còn ${hpPct}%)!`,'danger');
+
+    const boss=getCurrentBoss();
+    if(!boss){
+      addAnnounce('✅ Boss đã bị đánh bại ở khu này!','success');
+      return;
+    }
+    if(boss.hp<=0){
+      addAnnounce('✅ Boss đã chết!','success');
+      return;
+    }
+
+    G.lastBossFight=now;
+
+    let dmg=10+G.realm*5;
+    if(hasPassive('passiveBoss')) dmg=Math.round(dmg*1.15);
+    const sk=getEquippedSkill();
+    if(sk && sk.bonusAll && now>G.skillCooldown){
+      dmg=Math.round(dmg*3);
+      G.skillCooldown=now+sk.cd*1000;
+    }
+
+    boss.hp -= dmg;
+    G.bossHp[G.currentArea] = Math.max(0, boss.hp);
+
+    if(boss.hp <= 0){
+      // Won!
+      const expReward=boss.exp, stoneReward=boss.stone;
+      G.spiritStones+=stoneReward;
+      G.bossDefeated.push(G.currentArea);
+      const jadeReward=1+Math.floor(Math.random()*5);
+      G.jade+=jadeReward;
+      addAnnounce(`🏆🎉 ĐÁNH BẠI ${boss.name}! Nhận +${expReward} EXP +${stoneReward}💎 +${jadeReward}🔮!`,'event');
+      addExp(expReward);
+    }else{
+      const hpPct=Math.round(boss.hp/boss.maxHp*100);
+      addAnnounce(`⚔️ Đánh ${boss.name}: -${dmg} HP (còn ${hpPct}%)!`,'danger');
+    }
+    updateUI();
+  }catch(e){
+    console.error('fightBoss error:',e);
   }
-  updateUI();
 }
 
 // ===== SKILLS =====
@@ -751,284 +1018,515 @@ function getEquippedSkill(){
   if(!G.equippedActiveSkill) return null;
   return ACTIVE_SKILLS.find(s=>s.id===G.equippedActiveSkill)||null;
 }
+
 function hasPassive(id){ return G.learnedSkills.includes(id); }
+
 function skillCooldownRemaining(){
   if(!G.skillCooldown) return 0;
-  return Math.max(0,Math.ceil((G.skillCooldown-Date.now())/1000));
+  return Math.max(0, Math.ceil((G.skillCooldown-Date.now())/1000));
 }
+
 function learnSkill(skill){
   const cost=skill.stoneCost||0;
   if(G.learnedSkills.includes(skill.id)) return;
-  if(G.spiritStones<cost){ addAnnounce(`❌ Cần ${cost} Linh Thạch để học ${skill.id}!`,'warning'); return; }
+  if(G.spiritStones < cost){
+    addAnnounce(`❌ Cần ${cost}💎 để học (bạn có ${G.spiritStones}💎). Hãy đi săn yêu thú!`,'warning');
+    return;
+  }
   G.spiritStones-=cost;
   G.learnedSkills.push(skill.id);
   addAnnounce(`📜 Học thành công ${skill.name}!`,'success');
   updateUI();
 }
+
 function equipSkill(skillId){
   if(!G.learnedSkills.includes(skillId)) return;
-  G.equippedActiveSkill=G.equippedActiveSkill===skillId?null:skillId;
-  if(G.equippedActiveSkill) addAnnounce(`⚔️ Trang bị ${ACTIVE_SKILLS.find(s=>s.id===skillId).name}!`,'info');
+  G.equippedActiveSkill = (G.equippedActiveSkill === skillId) ? null : skillId;
+  if(G.equippedActiveSkill)
+    addAnnounce(`⚔️ Trang bị ${ACTIVE_SKILLS.find(s=>s.id===skillId).name}!`,'info');
   updateUI();
 }
-function renderSkills(){
-  const grid=document.getElementById('skillGrid'); grid.innerHTML='';
-  const now=Date.now();
-  ACTIVE_SKILLS.forEach(s=>{
-    const owned=G.learnedSkills.includes(s.id);
-    const equipped=G.equippedActiveSkill===s.id;
-    const unlocked=G.realm>=s.minRealm;
-    const onCd=equipped&&G.skillCooldown>now;
-    const div=document.createElement('div');
-    div.className='skill-card'+(equipped?' equipped':'');
-    div.style.opacity=unlocked?'1':'0.35';
-    let btnHtml;
-    if(!owned){
-      if(!unlocked) btnHtml=`<button class="btn btn-sm btn-outline" disabled>🔒 Cần ${REALMS[s.minRealm].name}</button>`;
-      else btnHtml=`<button class="btn btn-sm btn-primary" onclick="learnSkill(ACTIVE_SKILLS.find(x=>x.id==='${s.id}'))">📜 Học (${s.stoneCost}💎)</button>`;
-    }else if(equipped&&onCd){
-      btnHtml=`<button class="btn btn-sm btn-warning" disabled>⏳ Hồi ${skillCooldownRemaining()}s</button>`;
-    }else{
-      btnHtml=`<button class="btn btn-sm ${equipped?'btn-success':'btn-outline'}" onclick="equipSkill('${s.id}')">${equipped?'✅ Đã trang bị':'🔧 Trang bị'}</button>`;
-    }
-    div.innerHTML=`<div class="skill-name">${s.name}</div>
-      <div class="skill-desc">${s.desc}</div>
-      <div class="skill-cd">⏱ CD: ${s.cd}s</div>
-      ${btnHtml}`;
-    grid.appendChild(div);
-  });
 
-  // Passives
-  const pgrid=document.getElementById('passiveSkillGrid'); pgrid.innerHTML='';
-  PASSIVE_SKILLS.forEach(s=>{
-    const owned=G.learnedSkills.includes(s.id);
-    const unlocked=G.realm>=s.minRealm;
-    const div=document.createElement('div');
-    div.className='skill-card'+(owned?' equipped':'');
-    div.style.opacity=unlocked?'1':'0.35';
-    let btnHtml;
-    if(!owned){
-      if(!unlocked) btnHtml=`<button class="btn btn-sm btn-outline" disabled>🔒 Cần ${REALMS[s.minRealm].name}</button>`;
-      else btnHtml=`<button class="btn btn-sm btn-success" onclick="learnSkill(PASSIVE_SKILLS.find(x=>x.id==='${s.id}'))">📜 Học (${s.stoneCost}💎)</button>`;
-    }else{
-      btnHtml=`<span style="font-size:11px;color:#7ad8a0">✅ Đã học</span>`;
-    }
-    div.innerHTML=`<div class="skill-name">${s.name}</div>
-      <div class="skill-desc">${s.desc}</div>
-      ${btnHtml}`;
-    pgrid.appendChild(div);
-  });
+function renderSkills(){
+  try{
+    // Active skills
+    const grid=document.getElementById('skillGrid');
+    if(!grid) return;
+    grid.innerHTML='';
+    const now=Date.now();
+
+    ACTIVE_SKILLS.forEach(s=>{
+      const owned=G.learnedSkills.includes(s.id);
+      const equipped=G.equippedActiveSkill===s.id;
+      const unlocked=G.realm>=s.minRealm;
+      const onCd=equipped && G.skillCooldown>now;
+      const div=document.createElement('div');
+      div.className='skill-card'+(equipped?' equipped':'');
+      div.style.opacity=unlocked?'1':'0.35';
+
+      let btnHtml;
+      if(!owned){
+        if(!unlocked){
+          btnHtml=`<button class="btn btn-sm btn-outline" disabled>🔒 Cần ${REALMS[s.minRealm].name}</button>`;
+        }else{
+          const canAfford=G.spiritStones>=s.stoneCost;
+          btnHtml=`<button class="btn btn-sm ${canAfford?'btn-primary':'btn-outline'}" onclick="learnSkill(ACTIVE_SKILLS.find(x=>x.id==='${s.id}'))"
+            ${canAfford?'':'disabled'}>📜 Học (${s.stoneCost}💎)${canAfford?'':`<span class="insufficient"> — có ${G.spiritStones}💎</span>`}</button>`;
+        }
+      }else if(equipped && onCd){
+        btnHtml=`<button class="btn btn-sm btn-warning" disabled>⏳ Hồi ${skillCooldownRemaining()}s</button>`;
+      }else{
+        btnHtml=`<button class="btn btn-sm ${equipped?'btn-success':'btn-outline'}" onclick="equipSkill('${s.id}')">${equipped?'✅ Đã trang bị':'🔧 Trang bị'}</button>`;
+      }
+
+      div.innerHTML=`<div class="skill-name">${s.name}</div>
+        <div class="skill-desc">${s.desc}</div>
+        <div class="skill-cd">⏱ CD: ${s.cd}s</div>
+        ${btnHtml}`;
+      grid.appendChild(div);
+    });
+
+    // Passive skills
+    const pgrid=document.getElementById('passiveSkillGrid');
+    if(!pgrid) return;
+    pgrid.innerHTML='';
+
+    PASSIVE_SKILLS.forEach(s=>{
+      const owned=G.learnedSkills.includes(s.id);
+      const unlocked=G.realm>=s.minRealm;
+      const div=document.createElement('div');
+      div.className='skill-card'+(owned?' equipped':'');
+      div.style.opacity=unlocked?'1':'0.35';
+
+      let btnHtml;
+      if(!owned){
+        if(!unlocked){
+          btnHtml=`<button class="btn btn-sm btn-outline" disabled>🔒 Cần ${REALMS[s.minRealm].name}</button>`;
+        }else{
+          const canAfford=G.spiritStones>=s.stoneCost;
+          btnHtml=`<button class="btn btn-sm ${canAfford?'btn-success':'btn-outline'}" onclick="learnSkill(PASSIVE_SKILLS.find(x=>x.id==='${s.id}'))"
+            ${canAfford?'':'disabled'}>📜 Học (${s.stoneCost}💎)${canAfford?'':`<span class="insufficient"> — có ${G.spiritStones}💎</span>`}</button>`;
+        }
+      }else{
+        btnHtml=`<span style="font-size:11px;color:#7ad8a0">✅ Đã học</span>`;
+      }
+
+      div.innerHTML=`<div class="skill-name">${s.name}</div>
+        <div class="skill-desc">${s.desc}</div>
+        ${btnHtml}`;
+      pgrid.appendChild(div);
+    });
+  }catch(e){
+    console.error('renderSkills error:',e);
+  }
 }
 
 // ===== HERBS & PILLS =====
 function gatherHerbs(){
-  const now=Date.now(),elapsed=(now-G.lastHerbGather)/1000;
-  if(elapsed<10){ addAnnounce(`⏳ Còn ${Math.ceil(10-elapsed)}s`,'warning'); return; }
+  const now=Date.now();
+  const elapsed=(now - G.lastHerbGather)/1000;
+  if(elapsed<10){
+    addAnnounce(`⏳ Còn ${Math.ceil(10-elapsed)}s`,'warning');
+    return;
+  }
   const gained=1+Math.floor(Math.random()*4);
-  G.herbs+=gained; G.lastHerbGather=now;
+  G.herbs+=gained;
+  G.lastHerbGather=now;
   addAnnounce(`🌿 +${gained} linh dược`,'success');
   updateUI();
 }
+
 function craftPill(id){
-  const pill=PILL_TYPES.find(p=>p.id===id); if(!pill) return;
-  if(G.realm<pill.minRealm){ addAnnounce(`❌ Cần ${REALMS[pill.minRealm].name}`,'warning'); return; }
-  if(G.herbs<pill.herbCost){ addAnnounce(`❌ Cần ${pill.herbCost} dược`,'warning'); return; }
+  const pill=PILL_TYPES.find(p=>p.id===id);
+  if(!pill) return;
+  if(G.realm<pill.minRealm){
+    addAnnounce(`❌ Cần ${REALMS[pill.minRealm].name}`,'warning');
+    return;
+  }
+  if(G.herbs<pill.herbCost){
+    addAnnounce(`❌ Cần ${pill.herbCost} dược`,'warning');
+    return;
+  }
   G.herbs-=pill.herbCost;
-  const rate=Math.min(0.95,pill.successRate+(G.caveLevel-1)*0.03);
-  if(Math.random()<rate){ G.pills[pill.id]=(G.pills[pill.id]||0)+1; addAnnounce(`🔥 Luyện 1 ${pill.name}!`,'success'); }
-  else addAnnounce(`💨 Luyện ${pill.name} thất bại`,'warning');
+  const rate=Math.min(0.95, pill.successRate + (G.caveLevel-1)*0.03);
+  if(Math.random()<rate){
+    G.pills[pill.id]=(G.pills[pill.id]||0)+1;
+    addAnnounce(`🔥 Luyện 1 ${pill.name}!`,'success');
+  }else{
+    addAnnounce(`💨 Luyện ${pill.name} thất bại`,'warning');
+  }
   updateUI();
 }
+
 function usePill(id){
   const pill=PILL_TYPES.find(p=>p.id===id);
-  if(!pill||(G.pills[pill.id]||0)<=0) return;
+  if(!pill || (G.pills[pill.id]||0)<=0) return;
   G.pills[pill.id]--;
   addAnnounce(`💊 +${pill.expVal} EXP`,'success');
   addExp(pill.expVal);
-  if(Math.random()<0.04){ const b=20+Math.floor(Math.random()*80); addAnnounce(`✨ Ngộ đạo +${b} EXP!`,'event'); addExp(b); }
+  if(Math.random()<0.04){
+    const b=20+Math.floor(Math.random()*80);
+    addAnnounce(`✨ Ngộ đạo +${b} EXP!`,'event');
+    addExp(b);
+  }
   updateUI();
 }
+
 function useItem(id){
   const item=LOOT_ITEMS.find(i=>i.id===id);
-  if(!item||(G.inventory[id]||0)<=0) return;
+  if(!item || (G.inventory[id]||0)<=0) return;
   if(item.expVal){
-    G.inventory[id]--; addExp(item.expVal);
+    G.inventory[id]--;
+    addExp(item.expVal);
     addAnnounce(`📦 Dùng ${item.name} +${item.expVal} EXP!`,'success');
   }
   updateUI();
 }
 
+// ===== SHOP =====
+function renderShop(){
+  try{
+    // Stone shop
+    const sgrid=document.getElementById('shopGrid');
+    if(!sgrid) return;
+    sgrid.innerHTML='';
+    SHOP_ITEMS.forEach(item=>{
+      const canAfford=item.currency==='stone'?G.spiritStones>=item.cost:G.jade>=item.cost;
+      const div=document.createElement('div');
+      div.className='shop-card';
+      div.innerHTML=`<div class="shop-icon">${item.name.split(' ')[0]}</div>
+        <div class="shop-name">${item.name}</div>
+        <div class="shop-desc">${item.desc}</div>
+        <div class="shop-price">💎 ${item.cost}</div>
+        <button class="btn btn-sm btn-shop-buy ${canAfford?'btn-shop':'btn-outline'}" onclick="buyShopItem('${item.id}')" ${canAfford?'':'disabled'}
+          style="padding:4px 10px;font-size:11px;margin-top:3px;width:100%">Mua</button>`;
+      sgrid.appendChild(div);
+    });
+
+    // Jade shop
+    const jgrid=document.getElementById('jadeShopGrid');
+    if(!jgrid) return;
+    jgrid.innerHTML='';
+    JADE_SHOP_ITEMS.forEach(item=>{
+      const canAfford=item.currency==='jade'?G.jade>=item.cost:G.spiritStones>=item.cost;
+      const div=document.createElement('div');
+      div.className='shop-card';
+      div.innerHTML=`<div class="shop-icon">${item.name.split(' ')[0]}</div>
+        <div class="shop-name">${item.name}</div>
+        <div class="shop-desc">${item.desc}</div>
+        <div class="shop-price shop-price-jade">🔮 ${item.cost}</div>
+        <button class="btn btn-sm btn-shop-buy ${canAfford?'btn-jade':'btn-outline'}" onclick="buyShopItem('${item.id}')" ${canAfford?'':'disabled'}
+          style="padding:4px 10px;font-size:11px;margin-top:3px;width:100%">Mua</button>`;
+      jgrid.appendChild(div);
+    });
+  }catch(e){
+    console.error('renderShop error:',e);
+  }
+}
+
+function buyShopItem(id){
+  try{
+    // Check stone shop
+    const stoneItem=SHOP_ITEMS.find(i=>i.id===id);
+    if(stoneItem){
+      if(stoneItem.currency==='stone'){
+        if(G.spiritStones<stoneItem.cost){
+          addAnnounce(`❌ Cần ${stoneItem.cost}💎 (bạn có ${G.spiritStones}💎)`,'warning');
+          return;
+        }
+        G.spiritStones-=stoneItem.cost;
+      }else{
+        if(G.jade<stoneItem.cost){
+          addAnnounce(`❌ Cần ${stoneItem.cost}🔮 (bạn có ${G.jade}🔮)`,'warning');
+          return;
+        }
+        G.jade-=stoneItem.cost;
+      }
+      stoneItem.effect();
+      addAnnounce(`🛒 Mua ${stoneItem.name} thành công!`,'success');
+      updateUI();
+      return;
+    }
+
+    // Check jade shop
+    const jadeItem=JADE_SHOP_ITEMS.find(i=>i.id===id);
+    if(jadeItem){
+      if(jadeItem.currency==='jade'){
+        if(G.jade<jadeItem.cost){
+          addAnnounce(`❌ Cần ${jadeItem.cost}🔮 (bạn có ${G.jade}🔮)`,'warning');
+          return;
+        }
+        G.jade-=jadeItem.cost;
+      }else{
+        if(G.spiritStones<jadeItem.cost){
+          addAnnounce(`❌ Cần ${jadeItem.cost}💎 (bạn có ${G.spiritStones}💎)`,'warning');
+          return;
+        }
+        G.spiritStones-=jadeItem.cost;
+      }
+      jadeItem.effect();
+      addAnnounce(`🛒 Mua ${jadeItem.name} thành công!`,'success');
+      updateUI();
+      return;
+    }
+
+    addAnnounce('❌ Không tìm thấy vật phẩm!','warning');
+  }catch(e){
+    console.error('buyShopItem error:',e);
+  }
+}
+
 // ===== CAVE =====
 function upgradeCave(){
-  const cost=3+G.caveLevel*2; // 5,7,9,11...
-  if(G.spiritStones<cost){ addAnnounce(`❌ Cần ${cost} Linh Thạch`,'warning'); return; }
-  G.spiritStones-=cost; G.caveLevel++;
-  addAnnounce(`🏠 Động phủ Cấp ${G.caveLevel}!`,'success');
+  const cost=3+G.caveLevel*2;
+  if(G.spiritStones<cost){
+    addAnnounce(`❌ Cần ${cost}💎 (bạn có ${G.spiritStones}💎)`,'warning');
+    return;
+  }
+  G.spiritStones-=cost;
+  G.caveLevel++;
+  addAnnounce(`🏠 Động phủ Cấp ${G.caveLevel}! EXP idle +${(G.caveLevel-1)*5}%`,'success');
   updateUI();
 }
 
 // ===== PET =====
 function feedPet(){
-  if(G.herbs<5){ addAnnounce('❌ Cần 5 dược' ,'warning'); return; }
+  if(G.herbs<5){
+    addAnnounce('❌ Cần 5 dược. Mua ở Cửa Hàng hoặc hái dược.','warning');
+    return;
+  }
   G.herbs-=5;
   let feedExp=20+Math.floor(Math.random()*20);
   if(hasPassive('passivePet')) feedExp=Math.round(feedExp*1.2);
   G.petExp+=feedExp;
-  if(G.petLevel===0&&G.petExp>=PET_EXP_PER_LEVEL(0)){ G.petExp=0; G.petLevel=1; addAnnounce('🐣 Trứng nở! Chào linh thú!' ,'success'); }
+  if(G.petLevel===0 && G.petExp>=PET_EXP_PER_LEVEL(0)){
+    G.petExp=0;
+    G.petLevel=1;
+    addAnnounce('🐣 Trứng nở! Chào linh thú!','success');
+  }
   checkPetLevelUp();
   updateUI();
 }
+
 function checkPetLevelUp(){
-  while(G.petLevel>0&&G.petExp>=PET_EXP_PER_LEVEL(G.petLevel)){
-    G.petExp-=PET_EXP_PER_LEVEL(G.petLevel); G.petLevel++;
+  while(G.petLevel>0 && G.petExp>=PET_EXP_PER_LEVEL(G.petLevel)){
+    G.petExp-=PET_EXP_PER_LEVEL(G.petLevel);
+    G.petLevel++;
     addAnnounce(`🐉 Linh thú Cấp ${G.petLevel}! ${PET_NAMES[Math.min(G.petLevel,PET_NAMES.length-1)]}`,'success');
   }
 }
 
 // ===== REBIRTH =====
 function attemptRebirth(){
-  if(G.realm<MAX_REALM||G.tier<MAX_TIER){ addAnnounce('❌ Cần Đại Thừa T10' ,'warning'); return; }
-  G.rebirthCount++; G.realm=0; G.tier=0; G.exp=0; G.herbs=20; G.pills={tuKhi:0,tuNguyen:0,ngungThan:0};
-  G.totalHunts=0; G.totalExpEarned=0; G.totalRealmExp=0; G.spiritStones=10; G.caveLevel=1; G.petLevel=0; G.petExp=0; G.daoTam=100;
-  G.inventory={}; G.bossDefeated=[]; G.bossHp={}; G.learnedSkills=[]; G.equippedActiveSkill=null;
+  if(G.realm<MAX_REALM || G.tier<MAX_TIER){
+    addAnnounce('❌ Cần Đại Thừa T10','warning');
+    return;
+  }
+  G.rebirthCount++;
+  G.realm=0; G.tier=0; G.exp=0;
+  G.herbs=20;
+  G.pills={tuKhi:0,tuNguyen:0,ngungThan:0};
+  G.totalHunts=0; G.totalExpEarned=0; G.totalRealmExp=0;
+  G.spiritStones=10; G.caveLevel=1; G.petLevel=0; G.petExp=0; G.daoTam=100;
+  G.inventory={}; G.bossDefeated=[]; G.bossHp={};
+  G.learnedSkills=[]; G.equippedActiveSkill=null;
   addAnnounce(`♾️♾️ CHUYỂN SINH LẦN ${G.rebirthCount}! Linh căn mạnh hơn!`,'event');
-  updateUI(); document.getElementById('rebirthSection').style.display='none'; saveGame();
+  updateUI();
+  document.getElementById('rebirthSection').style.display='none';
+  saveGame();
 }
 
 // ===== ANNOUNCEMENTS =====
 const MAX_ANNOUNCE=6;
+
 function addAnnounce(text,type='info'){
-  showToast(text,type);
-  const c=document.getElementById('announcements'); if(!c) return;
-  const el=document.createElement('div'); el.className='announce';
-  const t=new Date().toLocaleTimeString();
-  const icons={success:'✅',danger:'💥',warning:'⚠️',event:'✨',info:'📌'};
-  el.innerHTML=`<span class="time">[${t}]</span> ${icons[type]||'📌'} ${text}`;
-  c.prepend(el);
-  while(c.children.length>MAX_ANNOUNCE) c.removeChild(c.lastChild);
+  try{
+    showToast(text,type);
+    const c=document.getElementById('announcements');
+    if(!c) return;
+    const el=document.createElement('div');
+    el.className='announce';
+    const t=new Date().toLocaleTimeString();
+    const icons={success:'✅',danger:'💥',warning:'⚠️',event:'✨',info:'📌'};
+    el.innerHTML=`<span class="time">[${t}]</span> ${icons[type]||'📌'} ${text}`;
+    c.prepend(el);
+    while(c.children.length>MAX_ANNOUNCE) c.removeChild(c.lastChild);
+  }catch(e){
+    console.error('addAnnounce error:',e);
+  }
 }
+
 function showToast(text,type='info'){
-  const c=document.getElementById('toastContainer');
-  const el=document.createElement('div'); el.className='toast toast-'+type; el.textContent=text;
-  c.appendChild(el);
-  setTimeout(()=>{el.style.opacity='0';el.style.transition='opacity 0.3s';setTimeout(()=>el.remove(),300)},2500);
+  try{
+    const c=document.getElementById('toastContainer');
+    if(!c) return;
+    const el=document.createElement('div');
+    el.className='toast toast-'+type;
+    el.textContent=text;
+    c.appendChild(el);
+    setTimeout(()=>{
+      el.style.opacity='0';
+      el.style.transition='opacity 0.3s';
+      setTimeout(()=>el.remove(),300);
+    },2500);
+  }catch(e){}
 }
 
 // ===== UI UPDATE =====
 function updateUI(){
-  if(!G) return;
+  try{
+    if(!G) return;
 
-  // Header currency
-  document.getElementById('spiritStones').textContent=G.spiritStones;
-  document.getElementById('jade').textContent=G.jade;
+    // Header currency
+    document.getElementById('spiritStones').textContent=G.spiritStones;
+    document.getElementById('jade').textContent=G.jade;
 
-  // Realm
-  document.getElementById('realmName').textContent=REALMS[G.realm].name+(G.rebirthCount>0?` (${G.rebirthCount}× CS)`:'');
-  document.getElementById('tierDisplay').textContent=G.tier+1;
+    // Realm
+    document.getElementById('realmName').textContent=REALMS[G.realm].name+(G.rebirthCount>0?` (${G.rebirthCount}× CS)`:'');
+    document.getElementById('tierDisplay').textContent=G.tier+1;
 
-  // EXP
-  const needed=getExpNeeded(G.realm,G.tier);
-  const pct=needed>0?Math.min(100,(G.exp/needed)*100):0;
-  document.getElementById('expCurrent').textContent=Math.floor(G.exp);
-  document.getElementById('expNeeded').textContent=needed;
-  document.getElementById('expBar').style.width=pct+'%';
-  document.getElementById('expBarPct').textContent=Math.round(pct)+'%';
+    // EXP — show overflow indicator when capped at T9/T10
+    const needed=getExpNeeded(G.realm, G.tier);
+    let pct=0;
+    if(needed>0 && needed!==Infinity){
+      pct=Math.min(100, (G.exp/needed)*100);
+    }
+    document.getElementById('expCurrent').textContent=Math.floor(G.exp);
+    document.getElementById('expNeeded').textContent=(needed===Infinity?'∞':needed);
+    document.getElementById('expBar').style.width=pct+'%';
+    document.getElementById('expBarPct').textContent=Math.round(pct)+'%';
 
-  // Cultivate
-  const root=getSpiritRoot();
-  document.getElementById('spiritRoot').textContent=`${root.name}×${root.mult.toFixed(1)}`;
-  document.getElementById('clickExp').textContent=getCultivateExpPerClick();
-  document.getElementById('idleRateLabel').textContent=Math.round(getIdleExpPerSecond()*60);
+    // Overflow EXP display (when at tier 8+ and EXP > needed)
+    const overflowEl=document.getElementById('overflowExp');
+    if(overflowEl){
+      if((G.tier===8||G.tier===9) && G.exp>needed && needed>0){
+        const overflow=G.exp-needed;
+        overflowEl.style.display='block';
+        overflowEl.textContent=`📦 EXP dự trữ: +${Math.floor(overflow)} (vượt quá mức cần cho đột phá)`;
+      }else{
+        overflowEl.style.display='none';
+      }
+    }
 
-  // Auto toggle
-  document.getElementById('autoToggle').classList.toggle('active',G.autoCultivate);
+    // Cultivate info
+    const root=getSpiritRoot();
+    document.getElementById('spiritRoot').textContent=`${root.name}×${root.mult.toFixed(1)}${G.rootBoostUntil>Date.now()?' 🌟':''}`;
+    document.getElementById('clickExp').textContent=getCultivateExpPerClick();
+    document.getElementById('idleRateLabel').textContent=Math.round(getIdleExpPerSecond()*60);
 
-  // Herbs & cooldown
-  document.getElementById('herbCount').textContent=G.herbs;
-  const hElapsed=(Date.now()-G.lastHerbGather)/1000;
-  if(hElapsed<10){ document.getElementById('herbCooldownDisplay').textContent=`⏱ Còn ${Math.ceil(10-hElapsed)}s`; }
-  else document.getElementById('herbCooldownDisplay').textContent='✅ Sẵn sàng!';
+    // Auto toggle
+    document.getElementById('autoToggle').classList.toggle('active',G.autoCultivate);
 
-  // Areas
-  renderAreas();
-  const area=getCurrentArea();
-  document.getElementById('areaNameSelected').textContent=area.name;
-  document.getElementById('areaEmoji').textContent=area.emoji;
-  document.getElementById('areaDescription').textContent=area.desc;
-  document.getElementById('huntExpDisplay').textContent=area.expBase;
-  document.getElementById('huntStoneDisplay').textContent=area.stoneBase;
-  document.getElementById('huntLootDisplay').textContent=Math.round(area.lootChance*100)+'%';
-  const eff=Math.pow(0.9,G.huntCountThisHour)*100;
-  document.getElementById('huntDiminish').textContent=G.huntCountThisHour>0?`⚠️ Hiệu suất: ${Math.round(eff)}% (săn ${G.huntCountThisHour} con giờ qua)`:'';
-  document.getElementById('totalHunts').textContent=G.totalHunts;
+    // Herbs & cooldown
+    document.getElementById('herbCount').textContent=G.herbs;
+    const hElapsed=(Date.now()-G.lastHerbGather)/1000;
+    const hCd=document.getElementById('herbCooldownDisplay');
+    if(hCd){
+      if(hElapsed<10) hCd.textContent=`⏱ Còn ${Math.ceil(10-hElapsed)}s`;
+      else hCd.textContent='✅ Sẵn sàng!';
+    }
 
-  // Boss
-  const boss=getCurrentBoss();
-  if(boss){
-    document.getElementById('bossContent').style.display='block';
-    document.getElementById('bossName').textContent=boss.name;
-    const hpPct=Math.round(boss.hp/boss.maxHp*100);
-    document.getElementById('bossHpBar').style.width=hpPct+'%';
-    document.getElementById('bossHpCurrent').textContent=`${boss.hp}/${boss.maxHp}`;
-    const cdRemaining=Math.max(0,Math.ceil((Date.now()-G.lastBossFight<5000?(5000-(Date.now()-G.lastBossFight))/1000:0)));
-    document.getElementById('bossCooldown').textContent=cdRemaining>0?`${cdRemaining}s`:'✅ Sẵn sàng';
-  }else{
-    document.getElementById('bossContent').style.display='block';
-    document.getElementById('bossName').textContent='✅ Đã đánh bại!';
-    document.getElementById('bossHpBar').style.width='0%';
-    document.getElementById('bossHpCurrent').textContent='0/0';
+    // Adventure areas
+    renderAreas();
+    const area=getCurrentArea();
+    document.getElementById('areaNameSelected').textContent=area.name;
+    document.getElementById('areaEmoji').textContent=area.emoji;
+    document.getElementById('areaDescription').textContent=area.desc;
+    document.getElementById('huntExpDisplay').textContent=area.expBase;
+    document.getElementById('huntStoneDisplay').textContent=area.stoneBase;
+    document.getElementById('huntLootDisplay').textContent=Math.round(area.lootChance*100)+'%';
+    const eff=Math.pow(0.9, G.huntCountThisHour)*100;
+    const dimEl=document.getElementById('huntDiminish');
+    if(dimEl){
+      dimEl.textContent=G.huntCountThisHour>0
+        ?`⚠️ Hiệu suất: ${Math.round(eff)}% (săn ${G.huntCountThisHour} con giờ qua)`
+        :'';
+    }
+    document.getElementById('totalHunts').textContent=G.totalHunts||0;
+
+    // Boss
+    const boss=getCurrentBoss();
+    if(boss){
+      document.getElementById('bossContent').style.display='block';
+      document.getElementById('bossName').textContent=boss.name;
+      const hpPct=Math.round(boss.hp/boss.maxHp*100);
+      document.getElementById('bossHpBar').style.width=hpPct+'%';
+      document.getElementById('bossHpCurrent').textContent=`${boss.hp}/${boss.maxHp}`;
+      const cdElapsed=Date.now()-G.lastBossFight;
+      const bossCd=cdElapsed<5000?Math.ceil((5000-cdElapsed)/1000):0;
+      document.getElementById('bossCooldown').textContent=bossCd>0?`${bossCd}s`:'✅ Sẵn sàng';
+    }else{
+      document.getElementById('bossContent').style.display='block';
+      document.getElementById('bossName').textContent='✅ Đã đánh bại!';
+      document.getElementById('bossHpBar').style.width='0%';
+      document.getElementById('bossHpCurrent').textContent='0/0';
+    }
+
+    // Skills
+    renderSkills();
+
+    // Pills
+    renderPillGrid();
+    renderInventory();
+    renderPillInventory();
+
+    // Cave
+    document.getElementById('caveLevel').textContent=G.caveLevel;
+    const iBonus=(G.caveLevel-1)*5, aBonus=(G.caveLevel-1)*3;
+    document.getElementById('caveBonus').textContent=`+${iBonus}% EXP idle · +${aBonus}% luyện đan`;
+    document.getElementById('caveUpgradeBtn').textContent=`⬆ Nâng cấp (${3+G.caveLevel*2}💎)`;
+
+    // Pet
+    if(G.petLevel>0){
+      const idx=Math.min(G.petLevel, PET_NAMES.length-1);
+      document.getElementById('petEmoji').textContent=PET_NAMES[idx].split(' ')[0];
+      document.getElementById('petName').textContent=PET_NAMES[idx].split(' ').slice(1).join(' ');
+      const pn=PET_EXP_PER_LEVEL(G.petLevel);
+      const pp=Math.min(100, (G.petExp/pn)*100);
+      document.getElementById('petLevelDisplay').textContent=`Cấp ${G.petLevel} — ${Math.floor(G.petExp)}/${Math.round(pn)} EXP`;
+      document.getElementById('petExpBar').style.width=pp+'%';
+    }else{
+      const pn=PET_EXP_PER_LEVEL(0);
+      const pp=Math.min(100, (G.petExp/pn)*100);
+      document.getElementById('petLevelDisplay').textContent=`🥚 Trứng — ${Math.floor(G.petExp)}/${Math.round(pn)} EXP`;
+      document.getElementById('petExpBar').style.width=pp+'%';
+    }
+
+    // Rebirth
+    if(G.realm===MAX_REALM && G.tier===MAX_TIER){
+      document.getElementById('rebirthSection').style.display='block';
+      document.getElementById('rebirthBonus').textContent=Math.min(60, 10+G.rebirthCount*10)+'%';
+      document.getElementById('rebirthCount').textContent=G.rebirthCount;
+    }
+
+    // Shop
+    renderShop();
+
+    // Tribulation (always check — ensures visibility on every update)
+    checkTribulationStatus();
+
+    // Playtime
+    const ps=Math.floor((Date.now()-G.startTime)/1000);
+    document.getElementById('playTime').textContent=
+      String(Math.floor(ps/3600)).padStart(2,'0')+':'+
+      String(Math.floor((ps%3600)/60)).padStart(2,'0')+':'+
+      String(ps%60).padStart(2,'0');
+
+  }catch(e){
+    console.error('updateUI error:',e);
   }
-
-  // Skills
-  renderSkills();
-
-  // Pills
-  renderPillGrid();
-  renderInventory();
-  renderPillInventory();
-
-  // Cave
-  document.getElementById('caveLevel').textContent=G.caveLevel;
-  const iBonus=(G.caveLevel-1)*5,aBonus=(G.caveLevel-1)*3;
-  document.getElementById('caveBonus').textContent=`+${iBonus}% EXP idle · +${aBonus}% luyện đan`;
-  document.getElementById('caveUpgradeBtn').textContent=`⬆ Nâng cấp (${3+G.caveLevel*2}💎)`;
-
-  // Pet
-  if(G.petLevel>0){
-    const idx=Math.min(G.petLevel,PET_NAMES.length-1);
-    document.getElementById('petEmoji').textContent=PET_NAMES[idx].split(' ')[0];
-    document.getElementById('petName').textContent=PET_NAMES[idx].split(' ').slice(1).join(' ');
-    const pn=PET_EXP_PER_LEVEL(G.petLevel),pp=Math.min(100,(G.petExp/pn)*100);
-    document.getElementById('petLevelDisplay').textContent=`Cấp ${G.petLevel} — ${Math.floor(G.petExp)}/${Math.round(pn)} EXP`;
-    document.getElementById('petExpBar').style.width=pp+'%';
-  }else{
-    const pn=PET_EXP_PER_LEVEL(0),pp=Math.min(100,(G.petExp/pn)*100);
-    document.getElementById('petLevelDisplay').textContent=`🥚 Trứng — ${Math.floor(G.petExp)}/${Math.round(pn)} EXP`;
-    document.getElementById('petExpBar').style.width=pp+'%';
-  }
-
-  // Rebirth
-  if(G.realm===MAX_REALM&&G.tier===MAX_TIER){
-    document.getElementById('rebirthSection').style.display='block';
-    document.getElementById('rebirthBonus').textContent=Math.min(60,10+G.rebirthCount*10)+'%';
-    document.getElementById('rebirthCount').textContent=G.rebirthCount;
-  }
-
-  checkTribulationStatus();
-
-  // Playtime
-  const ps=Math.floor((Date.now()-G.startTime)/1000);
-  document.getElementById('playTime').textContent=
-    String(Math.floor(ps/3600)).padStart(2,'0')+':'+
-    String(Math.floor((ps%3600)/60)).padStart(2,'0')+':'+
-    String(ps%60).padStart(2,'0');
 }
 
+// ===== RENDER HELPERS =====
 function renderPillGrid(){
-  const g=document.getElementById('pillGrid'); g.innerHTML='';
+  const g=document.getElementById('pillGrid');
+  if(!g) return;
+  g.innerHTML='';
   PILL_TYPES.forEach(p=>{
     const ok=G.realm>=p.minRealm;
-    const d=document.createElement('div'); d.className='item-card'; d.style.opacity=ok?'1':'0.35';
+    const d=document.createElement('div');
+    d.className='item-card';
+    d.style.opacity=ok?'1':'0.35';
     d.innerHTML=`<div class="item-name" style="color:${p.color}">${p.name}</div>
       <div class="item-desc">${p.desc}</div>
       <div class="item-count">🌿 ${p.herbCost} dược</div>
@@ -1037,29 +1535,38 @@ function renderPillGrid(){
     g.appendChild(d);
   });
 }
+
 function renderInventory(){
-  const g=document.getElementById('inventoryGrid'); g.innerHTML='';
-  // Show non-empty inventory items
+  const g=document.getElementById('inventoryGrid');
+  if(!g) return;
+  g.innerHTML='';
   let hasItems=false;
   Object.keys(G.inventory).forEach(id=>{
     const q=G.inventory[id];
     if(!q) return;
     hasItems=true;
-    const item=LOOT_ITEMS.find(i=>i.id===id); if(!item) return;
-    const d=document.createElement('div'); d.className='item-card';
+    const item=LOOT_ITEMS.find(i=>i.id===id);
+    if(!item) return;
+    const d=document.createElement('div');
+    d.className='item-card';
     d.innerHTML=`<div class="item-name" style="color:#7ad8a0">${item.name}</div>
       <div class="item-count">×${q}</div>
       ${item.expVal?`<button class="btn btn-sm btn-success" style="margin-top:4px;width:100%" onclick="useItem('${id}')">+${item.expVal} EXP</button>`:''}`;
     g.appendChild(d);
   });
-  if(!hasItems) g.innerHTML=`<div class="item-card" style="grid-column:span 4"><div class="item-name" style="color:#6a7a90">Trống</div></div>`;
+  if(!hasItems){
+    g.innerHTML=`<div class="item-card" style="grid-column:span 4"><div class="item-name" style="color:#6a7a90">Trống</div></div>`;
+  }
 }
+
 function renderPillInventory(){
   const d=document.getElementById('inventoryPills');
-  if(!d) return; d.innerHTML='';
+  if(!d) return;
+  d.innerHTML='';
   PILL_TYPES.forEach(p=>{
     const c=G.pills[p.id]||0;
-    const el=document.createElement('div'); el.className='item-card';
+    const el=document.createElement('div');
+    el.className='item-card';
     el.innerHTML=`<div class="item-name" style="color:${p.color}">${p.name}</div>
       <div class="item-count">💊 ×${c}</div>
       <button class="btn btn-sm btn-success" style="margin-top:4px;width:100%" onclick="usePill('${p.id}')" ${c>0?'':'disabled'}>+${p.expVal} EXP</button>`;
@@ -1068,49 +1575,109 @@ function renderPillInventory(){
 }
 
 // ===== TABS =====
-document.querySelectorAll('.tab-btn').forEach(btn=>{
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    this.classList.add('active');
-    document.getElementById('panel-'+this.dataset.tab).classList.add('active');
+(function(){
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      this.classList.add('active');
+      const panel=document.getElementById('panel-'+this.dataset.tab);
+      if(panel) panel.classList.add('active');
+    });
   });
-});
+})();
 
 // ===== GAME LOOP =====
-function gameLoop(){ if(!G) return; processIdle(); updateUI(); }
+function gameLoop(){
+  try{
+    if(!G) return;
+    processIdle();
+    updateUI();
+  }catch(e){
+    console.error('gameLoop error:',e);
+  }
+}
+
+// ===== DETECT VERCEL =====
+function detectVercel(){
+  const isVercel = window.location.hostname.includes('vercel.app') ||
+    window.location.hostname.includes('vercel.com') ||
+    !window.location.hostname.includes('localhost');
+  if(isVercel){
+    const notice=document.getElementById('vercelNotice');
+    if(notice){
+      notice.style.display='inline';
+      notice.textContent='🌐 Dữ liệu lưu trên trình duyệt (offline)';
+    }
+    const box=document.getElementById('vercelNoticeBox');
+    if(box) box.style.display='block';
+  }
+}
 
 // ===== INIT =====
 function init(){
-  if(!loadGame()) G=defaultState();
-  G.lastIdleCalc=Date.now();
-  G.savedRealmExp=calcRealmTotalExp();
-  G.totalRealmExp=calcRealmTotalExp();
-  updateUI(); checkTribulationStatus();
-  setInterval(gameLoop,2000);
-  setInterval(saveGame,15000);
-  document.addEventListener('keydown',e=>{
-    if(e.code==='Space'&&!e.repeat){
-      e.preventDefault();
-      if(document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA') cultivate();
+  try{
+    console.log('☯ Nghịch Hỏa Tinh Đồ — Initializing...');
+
+    if(!loadGame()){
+      G=defaultState();
+      console.log('🆕 New game created');
     }
-  });
-  addAnnounce('☯ Nghịch Hỏa Tinh Đồ khởi động! Chúc Tông chủ tu tiên thuận lợi.','event');
-  // Hint
-  setTimeout(()=>{
-    const h=document.createElement('div');
-    h.style.cssText='font-size:10px;color:#4a5a6a;margin-top:2px;text-align:center';
-    h.textContent='💡 Space = tu luyện';
-    document.querySelector('.cultivate-info')?.parentElement?.appendChild(h);
-  },500);
+
+    G.lastIdleCalc=Date.now();
+    G.savedRealmExp=calcRealmTotalExp();
+    G.totalRealmExp=calcRealmTotalExp();
+
+    updateUI();
+    checkTribulationStatus();
+
+    // Game loop every 2s
+    setInterval(gameLoop, 2000);
+
+    // Auto-save every 15s
+    setInterval(saveGame, 15000);
+
+    // Spacebar shortcut
+    document.addEventListener('keydown',e=>{
+      if(e.code==='Space' && !e.repeat){
+        e.preventDefault();
+        const tag=document.activeElement.tagName;
+        if(tag!=='INPUT' && tag!=='TEXTAREA' && tag!=='BUTTON') cultivate();
+      }
+    });
+
+    addAnnounce('☯ Nghịch Hỏa Tinh Đồ khởi động! Chúc Tông chủ tu tiên thuận lợi.','event');
+
+    // Hint
+    setTimeout(()=>{
+      const info=document.querySelector('.cultivate-info');
+      if(info && info.parentElement){
+        const h=document.createElement('div');
+        h.style.cssText='font-size:10px;color:#4a5a6a;margin-top:2px;text-align:center';
+        h.textContent='💡 Space = tu luyện nhanh | 🛒 Mua đồ ở tab Động Phủ';
+        info.parentElement.appendChild(h);
+      }
+    },500);
+
+    detectVercel();
+
+    console.log('✅ Game ready. Realm:',REALMS[G.realm].name,'Tier:',G.tier+1,'EXP:',G.exp);
+  }catch(e){
+    console.error('init error:',e);
+    // Fallback on error
+    if(!G) G=defaultState();
+  }
 }
 
-// Add floatUp animation
-const ss=document.createElement('style');
-ss.textContent=`@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(196,165,74,0.4)}50%{box-shadow:0 0 0 12px rgba(196,165,74,0)}}
+// Add dynamic CSS for pulse and floatUp
+(function(){
+  const ss=document.createElement('style');
+  ss.textContent=`@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(196,165,74,0.4)}50%{box-shadow:0 0 0 12px rgba(196,165,74,0)}}
 @keyframes floatUp{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-35px)}}`;
-document.head.appendChild(ss);
+  document.head.appendChild(ss);
+})();
 
+// Start the game
 init();
 </script>
 </body>
