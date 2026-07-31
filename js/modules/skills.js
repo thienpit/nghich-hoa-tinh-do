@@ -6,9 +6,11 @@ function getEquippedSkill(){
 
 function hasPassive(id){ return G.learnedSkills.includes(id); }
 
-function skillCooldownRemaining(){
-  if(!G.skillCooldown) return 0;
-  return Math.max(0, Math.ceil((G.skillCooldown-Date.now())/1000));
+function skillCooldownRemaining(id){
+  if(!id) return 0;
+  const cd=G.skillCooldowns[id];
+  if(!cd) return 0;
+  return Math.max(0, Math.ceil((cd-Date.now())/1000));
 }
 
 function learnSkill(skill){
@@ -44,7 +46,7 @@ function renderSkills(){
       const owned=G.learnedSkills.includes(s.id);
       const equipped=G.equippedActiveSkill===s.id;
       const unlocked=G.realm>=s.minRealm;
-      const onCd=equipped && G.skillCooldown>now;
+      const onCd=equipped && (G.skillCooldowns[s.id]||0)>now;
             const div=document.createElement('div');
             div.className='skill-card'+(equipped?' equipped':'');
             div.style.opacity=unlocked?'1':'0.35';
@@ -61,7 +63,7 @@ function renderSkills(){
             ${canAfford?'':'disabled'}>📜 Học (${s.stoneCost}💎)${canAfford?'':`<span class="insufficient"> — có ${G.spiritStones}💎</span>`}</button>`;
         }
       }else if(equipped && onCd){
-        btnHtml=`<button class="btn btn-sm btn-warning" disabled>⏳ Hồi ${skillCooldownRemaining()}s</button>`;
+        btnHtml=`<button class="btn btn-sm btn-warning" disabled>⏳ Hồi ${skillCooldownRemaining(s.id)}s</button>`;
       }else{
         btnHtml=`<button class="btn btn-sm ${equipped?'btn-success':'btn-outline'}" onclick="equipSkill('${s.id}')">${equipped?'✅ Đã trang bị':'🔧 Trang bị'}</button>`;
       }

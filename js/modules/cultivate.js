@@ -37,6 +37,19 @@ function addExp(amount){
 }
 
 // ===== CULTIVATE =====
+// EXP per click (defined here so it can use equipment bonuses)
+function getCultivateExpPerClick(){
+  const base=5, r=getSpiritRoot(), c=1+(G.caveLevel-1)*0.05, fluct=0.9+Math.random()*0.2;
+  let exp=base * r.mult * c * fluct;
+  // Path cultivation bonus (Tiên +10%, Ma = 0 — blocked anyway)
+  const path=getCultivationPath();
+  if(path) exp=exp*(path.cultBonus||0);
+  // Equipment bonus (Pháp Bảo EXP)
+  const eqBonus=getEquipmentBonus('clickExpBonus');
+  if(eqBonus>0) exp=exp*(1+eqBonus);
+  return Math.round(exp);
+}
+
 let lastCultivateTime=0;
 function cultivate(){
   if(!G || Date.now()-lastCultivateTime<300) return;
@@ -53,7 +66,7 @@ function cultivate(){
 
     // Active skill bonus
     const sk=getEquippedSkill();
-    if(sk && sk.bonusExp && Date.now()>G.skillCooldown)
+    if(sk && sk.bonusExp && Date.now()>(G.skillCooldowns[sk.id]||0))
       exp=Math.round(exp*(1+sk.bonusExp));
 
     // Random enlightenment

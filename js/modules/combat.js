@@ -35,9 +35,10 @@ function huntMonster(){
 
     // Skill bonus
     const sk=getEquippedSkill();
-    if(sk && sk.bonusExp && now>G.skillCooldown)
+    const skReady=sk && now>(G.skillCooldowns[sk.id]||0);
+    if(sk && sk.bonusExp && skReady)
       exp=Math.round(exp*(1+sk.bonusExp));
-    else if(sk && sk.bonusAll && now>G.skillCooldown)
+    else if(sk && sk.bonusAll && skReady)
       exp=Math.round(exp*(1+sk.bonusAll));
 
     // Diminishing returns
@@ -48,13 +49,16 @@ function huntMonster(){
     let stone=area.stoneBase;
     // Path hunt bonus applies to stones too (Ma = x2)
     if(path && path.huntBonus && path.huntBonus!==1) stone=Math.round(stone*path.huntBonus);
-    if(sk && sk.bonusStone && now>G.skillCooldown)
+    if(sk && sk.bonusStone && skReady)
       stone=Math.round(stone*(1+sk.bonusStone));
-    else if(sk && sk.bonusAll && now>G.skillCooldown)
+    else if(sk && sk.bonusAll && skReady)
       stone=Math.round(stone*(1+sk.bonusAll));
 
     // Passive stone bonus
     if(hasPassive('passiveStone')) stone=Math.round(stone*1.15);
+    // Equipment stone bonus (Giáp)
+    const eqStone=getEquipmentBonus('stoneBonus');
+    if(eqStone>0) stone=Math.round(stone*(1+eqStone));
     if(stone<1) stone=1;
 
     let petBonus=0;
@@ -66,8 +70,8 @@ function huntMonster(){
 
     // Loot
     let lootChance=area.lootChance;
-    if(sk && sk.bonusLoot && now>G.skillCooldown) lootChance*=2;
-    else if(sk && sk.bonusAll && now>G.skillCooldown) lootChance*=3;
+    if(sk && sk.bonusLoot && skReady) lootChance*=2;
+    else if(sk && sk.bonusAll && skReady) lootChance*=3;
     let lootMsg='';
     if(Math.random()<lootChance){
       const item=LOOT_ITEMS[Math.floor(Math.random()*LOOT_ITEMS.length)];
@@ -85,9 +89,9 @@ function huntMonster(){
     addAnnounce(`⚔️ Săn ${area.name}! +${exp} EXP +${stone}💎${lootMsg}`+(petBonus?` 🐉+${petBonus}`:''),'info');
     addExp(exp+petBonus);
 
-    // Skill cooldown
-    if(sk && (sk.bonusExp||sk.bonusStone||sk.bonusLoot||sk.bonusAll) && now>G.skillCooldown)
-      G.skillCooldown = now + sk.cd*1000;
+    // Skill cooldown (per-skill)
+    if(sk && (sk.bonusExp||sk.bonusStone||sk.bonusLoot||sk.bonusAll) && skReady)
+      G.skillCooldowns[sk.id] = now + sk.cd*1000;
 
     updateUI();
   }catch(e){
@@ -133,10 +137,14 @@ function fightBoss(){
     const path=getCultivationPath();
     if(path && path.bossBonus && path.bossBonus!==1) dmg=Math.round(dmg*path.bossBonus);
     if(hasPassive('passiveBoss')) dmg=Math.round(dmg*1.15);
+    // Equipment boss damage bonus (Phụ Trang)
+    const eqBoss=getEquipmentBonus('bossDmgBonus');
+    if(eqBoss>0) dmg=Math.round(dmg*(1+eqBoss));
     const sk=getEquippedSkill();
-    if(sk && sk.bonusAll && now>G.skillCooldown){
+    const skReady=sk && now>(G.skillCooldowns[sk.id]||0);
+    if(sk && sk.bonusAll && skReady){
       dmg=Math.round(dmg*3);
-      G.skillCooldown=now+sk.cd*1000;
+      G.skillCooldowns[sk.id]=now+sk.cd*1000;
     }
 
     boss.hp -= dmg;

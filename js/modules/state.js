@@ -29,13 +29,18 @@ function defaultState() {
     // Skills
     learnedSkills:[],
     equippedActiveSkill:null,
-    skillCooldown:0,
+    skillCooldowns:{},
     // Bosses
     bossDefeated:[],    // area index array
     bossHp:{},          // area index -> current HP
     lastBossFight:0,    // timestamp
     // Achievements (simple)
     achievements:[],
+    // Equipment
+    equipped:{ weapon:null, armor:null, accessory:null },
+    ownedEquipment:[],
+    // Quests
+    quests: JSON.parse(JSON.stringify(QUESTS)),
     // Shop extras
     rootBoostUntil:0,   // timestamp for temporary root boost
   };
@@ -60,8 +65,19 @@ function loadGame(){
       G=Object.assign(defaultState(),parsed);
       // Ensure new fields exist
       if(G.rootBoostUntil===undefined) G.rootBoostUntil=0;
+      // Backward compat: old saves used a single shared skillCooldown -> migrate to per-skill cooldowns
+      if(!G.skillCooldowns || typeof G.skillCooldowns!=='object') G.skillCooldowns={};
+      if(typeof G.skillCooldown==='number' && G.skillCooldown>0){
+        const sk=getEquippedSkill();
+        if(sk) G.skillCooldowns[sk.id]=G.skillCooldown;
+        G.skillCooldown=0;
+      }
       // Backward compat: old saves default to Tu Đạo (dao) path
       if(!G.cultivationPath || !CULTIVATION_PATHS.find(p=>p.id===G.cultivationPath)) G.cultivationPath='dao';
+      // Backward compat: equipment & quests
+      if(!G.equipped || typeof G.equipped!=='object') G.equipped={ weapon:null, armor:null, accessory:null };
+      if(!Array.isArray(G.ownedEquipment)) G.ownedEquipment=[];
+      if(!Array.isArray(G.quests) || G.quests.length!==QUESTS.length) G.quests=JSON.parse(JSON.stringify(QUESTS));
       console.log('✅ Loaded save. Realm:',REALMS[G.realm].name,'Tier:',G.tier+1,'EXP:',G.exp);
       return true;
     }
@@ -126,16 +142,45 @@ function getSpiritRoot(){
   return roots[idx];
 }
 
-function getCultivateExpPerClick(){
-  const base=5, r=getSpiritRoot(), c=1+(G.caveLevel-1)*0.05, fluct=0.9+Math.random()*0.2;
-  let exp=base * r.mult * c * fluct;
-  // Path cultivation bonus (Tiên +10%, Ma = 0 — blocked anyway)
-  const path=getCultivationPath();
-  if(path) exp=exp*(path.cultBonus||0);
-  return Math.round(exp);
-}
-
 function getIdleExpPerSecond(){
   const base=5*0.65, r=getSpiritRoot(), c=1+(G.caveLevel-1)*0.05, rm=1+G.realm*0.05;
   return base * r.mult * c * rm;
+}
+
+// ===== EQUIPMENT HELPERS =====
+function getEquipmentBonus(statName){
+  if(!G || !G.equipped) return 0;
+  let total=0;
+  Object.keys(G.equipped).forEach(slot=>{
+    const itemId=G.equipped[slot];
+    if(!itemId) return;
+    const item=EQUIPMENT_ITEMS.find(i=>i.id===itemId);
+    if(item && item.stats && item.stats[statName]) total+=item.stats[statName];
+  });
+  return total;
+}
+
+function buyEquipment(itemId){
+  const item=EQUIPMENT_ITEMS.find(i=>i.id===itemId);
+  if(!item) return;
+  if(G.ownedEquipment.includes(itemId)) return;
+  if(G.jade<item.cost){
+    addAnnounce(`❌ Cần ${item.cost}🔮 Tiên Ngọc để mua ${item.name}!`,'warning');
+    return;
+  }
+  G.jade-=item.cost;
+  G.ownedEquipment.push(itemId);
+  addAnnounce(`🛒 Mua thành công ${item.name}!`,'success');
+  updateUI();
+  saveGame();
+}
+
+function equipItem(itemId){
+  const item=EQUIPMENT_ITEMS.find(i=>i.id===itemId);
+  if(!item || !G.ownedEquipment.includes(itemId)) return;
+  const wasEquipped=G.equipped[item.slot]===itemId;
+  G.equipped[item.slot]=wasEquipped?null:itemId;
+  addAnnounce(wasEquipped?`📦 Tháo ${item.name}!`:`⚔️ Trang bị ${item.name}!`,'info');
+  updateUI();
+  saveGame();
 }

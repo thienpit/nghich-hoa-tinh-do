@@ -64,6 +64,7 @@
     <button class="tab-btn" data-tab="skills">📜 Kỹ Năng</button>
     <button class="tab-btn" data-tab="alchemy">💊 Đan Dược</button>
     <button class="tab-btn" data-tab="cave">🏔️ Động Phủ</button>
+    <button class="tab-btn" data-tab="quests">📋 Nhiệm Vụ</button>
   </div>
 
   <!-- ======================= TAB 1: TU LUYỆN ======================= -->
@@ -74,6 +75,7 @@
         <button class="cultivate-btn" id="cultivateBtn" onclick="cultivate()">
           ☯ Tu Luyện <span class="sub">+<span id="clickExp">5</span> EXP</span>
         </button>
+        <canvas id="particleCanvas" width="300" height="200"></canvas>
         <div class="cultivate-info">
           <div>⚡ <span id="cultivateRate">5</span> EXP/lần</div>
           <div>🎯 <span id="spiritRoot">Trung bình</span></div>
@@ -133,6 +135,10 @@
         </div>
         <button class="btn btn-danger" style="margin-top:8px" onclick="fightBoss()">⚔️ Đánh Boss!</button>
       </div>
+    </div>
+    <div class="battle-log" id="battleLog">
+      <div class="battle-log-title">📋 Nhật ký chiến đấu</div>
+      <div class="battle-log-content" id="battleLogContent"></div>
     </div>
   </div>
 
@@ -198,6 +204,14 @@
           <button class="btn btn-sm btn-warning" onclick="feedPet()">🍖 Cho ăn (5 dược)</button>
         </div>
       </div>
+    </div>
+
+    <!-- ===== EQUIPMENT ===== -->
+    <div class="card">
+      <div class="card-title">⚔️ Pháp Bảo & Trang Bị</div>
+      <div style="font-size:11px;color:#6a7a90;margin-bottom:8px">Mua pháp bảo bằng Tiên Ngọc 🔮 rồi trang bị. Bấm vào ô để mở menu trang bị.</div>
+      <div class="equip-slots" id="equipSlots"></div>
+      <div class="equip-items" id="equipItems"></div>
     </div>
 
     <!-- ===== SHOP ===== -->

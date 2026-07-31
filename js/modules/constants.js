@@ -85,3 +85,31 @@ const CULTIVATION_PATHS = [
 // ===== MA PATH SPECIFIC BONUSES =====
 const MA_HUNT_BONUS = 2.0; // EXP and stone multiplier for Ma path hunting
 const MA_BOSS_BONUS = 3.0; // boss damage multiplier for Ma path
+
+// ===== EQUIPMENT =====
+const EQUIPMENT_SLOTS = [
+  { id:'weapon', name:'Pháp Bảo', icon:'⚔️' },
+  { id:'armor', name:'Giáp', icon:'🛡️' },
+  { id:'accessory', name:'Phụ Trang', icon:'💍' }
+];
+
+const EQUIPMENT_ITEMS = [
+  { id:'woodSword', name:'Kiếm Gỗ Tử Đàn', slot:'weapon', desc:'Pháp bảo sơ cấp, +10% EXP tu luyện', cost:3, stats:{ clickExpBonus:0.10, stoneBonus:0, bossDmgBonus:0 } },
+  { id:'jadeSword', name:'Kiếm Ngọc Linh', slot:'weapon', desc:'Kiếm ngọc linh khí, +25% EXP tu luyện', cost:8, stats:{ clickExpBonus:0.25, stoneBonus:0, bossDmgBonus:0 } },
+  { id:'clothArmor', name:'Áo Bào Linh Văn', slot:'armor', desc:'Áo bào thêu pháp trận, +15% Linh Thạch săn', cost:5, stats:{ clickExpBonus:0, stoneBonus:0.15, bossDmgBonus:0 } },
+  { id:'spiritArmor', name:'Giáp Huyền Thiết', slot:'armor', desc:'Giáp nặng linh lực, +35% Linh Thạch săn', cost:12, stats:{ clickExpBonus:0, stoneBonus:0.35, bossDmgBonus:0 } },
+  { id:'jadeRing', name:'Nhẫn Tụ Linh', slot:'accessory', desc:'Nhẫn hút linh khí, +10% sát thương boss', cost:6, stats:{ clickExpBonus:0, stoneBonus:0, bossDmgBonus:0.10 } },
+  { id:'dragonAmulet', name:'Phù Long Ấn', slot:'accessory', desc:'Ấn phù long uy, +25% sát thương boss', cost:15, stats:{ clickExpBonus:0, stoneBonus:0, bossDmgBonus:0.25 } }
+];
+
+// ===== QUESTS =====
+const QUESTS = [
+  { id:'first_hunt', name:'Lần săn đầu tiên', desc:'Săn 1 yêu thú', check:()=>G.totalHunts>=1, reward:{jade:1}, claimed:false },
+  { id:'hunt_10', name:'Săn thử thách', desc:'Săn 10 yêu thú', check:()=>G.totalHunts>=10, reward:{jade:3}, claimed:false },
+  { id:'hunt_50', name:'Thợ săn', desc:'Săn 50 yêu thú', check:()=>G.totalHunts>=50, reward:{jade:5}, claimed:false },
+  { id:'realm_2', name:'Trúc Cơ', desc:'Đạt Trúc Cơ', check:()=>G.realm>=1, reward:{jade:2}, claimed:false },
+  { id:'realm_4', name:'Nguyên Anh', desc:'Đạt Nguyên Anh', check:()=>G.realm>=3, reward:{jade:5}, claimed:false },
+  { id:'boss_1', name:'Đầu tiên', desc:'Đánh bại 1 boss', check:()=>G.bossDefeated.length>=1, reward:{jade:3}, claimed:false },
+  { id:'boss_4', name:'Sát thủ', desc:'Đánh bại 4 boss', check:()=>G.bossDefeated.length>=4, reward:{jade:8}, claimed:false },
+  { id:'rebirth_1', name:'Chuyển sinh', desc:'Chuyển sinh lần đầu', check:()=>G.rebirthCount>=1, reward:{jade:10}, claimed:false }
+];
