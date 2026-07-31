@@ -9,6 +9,8 @@ function renderShop(){
       const canAfford=item.currency==='stone'?G.spiritStones>=item.cost:G.jade>=item.cost;
       const div=document.createElement('div');
       div.className='shop-card';
+      div.onmouseover = (e) => showTooltip(e, item.desc);
+      div.onmouseout = hideTooltip;
       div.innerHTML=`<div class="shop-icon">${item.name.split(' ')[0]}</div>
         <div class="shop-name">${item.name}</div>
         <div class="shop-desc">${item.desc}</div>
@@ -26,6 +28,8 @@ function renderShop(){
       const canAfford=item.currency==='jade'?G.jade>=item.cost:G.spiritStones>=item.cost;
       const div=document.createElement('div');
       div.className='shop-card';
+      div.onmouseover = (e) => showTooltip(e, item.desc);
+      div.onmouseout = hideTooltip;
       div.innerHTML=`<div class="shop-icon">${item.name.split(' ')[0]}</div>
         <div class="shop-name">${item.name}</div>
         <div class="shop-desc">${item.desc}</div>

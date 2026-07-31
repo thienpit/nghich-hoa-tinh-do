@@ -45,11 +45,13 @@ function renderSkills(){
       const equipped=G.equippedActiveSkill===s.id;
       const unlocked=G.realm>=s.minRealm;
       const onCd=equipped && G.skillCooldown>now;
-      const div=document.createElement('div');
-      div.className='skill-card'+(equipped?' equipped':'');
-      div.style.opacity=unlocked?'1':'0.35';
+            const div=document.createElement('div');
+            div.className='skill-card'+(equipped?' equipped':'');
+            div.style.opacity=unlocked?'1':'0.35';
+            div.onmouseover=(e)=>showTooltip(e,s.name+': '+s.desc+' | CD: '+s.cd+'s'+(s.stoneCost?' | Giá: '+s.stoneCost+'💎':''));
+            div.onmouseout=hideTooltip;
 
-      let btnHtml;
+            let btnHtml;
       if(!owned){
         if(!unlocked){
           btnHtml=`<button class="btn btn-sm btn-outline" disabled>🔒 Cần ${REALMS[s.minRealm].name}</button>`;
