@@ -37,6 +37,8 @@ function defaultState() {
     achievements:[],
     // Shop extras
     rootBoostUntil:0,   // timestamp for temporary root boost
+    // Cultivation path (Tu Đạo default)
+    cultivationPath:'dao',
   };
 }
 
@@ -59,6 +61,8 @@ function loadGame(){
       G=Object.assign(defaultState(),parsed);
       // Ensure new fields exist
       if(G.rootBoostUntil===undefined) G.rootBoostUntil=0;
+      // Backward compat: old saves default to Tu Đạo (dao) path
+      if(!G.cultivationPath || !CULTIVATION_PATHS.find(p=>p.id===G.cultivationPath)) G.cultivationPath='dao';
       console.log('✅ Loaded save. Realm:',REALMS[G.realm].name,'Tier:',G.tier+1,'EXP:',G.exp);
       return true;
     }
@@ -69,6 +73,20 @@ function loadGame(){
 }
 
 // ===== EXP HELPERS =====
+function getRealmLabel(){
+  const path=getCultivationPath();
+  const base=REALMS[G.realm].name;
+  if(G.cultivationPath==='ma') return `💀 ${base} (Ma Đạo)`; // path-specific label
+  if(G.cultivationPath==='tien') return `✨ ${base} (Tiên Đạo)`;
+  return `☯️ ${base} (Chính Đạo)`;
+}
+
+// ===== CULTIVATION PATH HELPERS =====
+function getCultivationPath(){
+  if(!G || !G.cultivationPath || !CULTIVATION_PATHS.find(p=>p.id===G.cultivationPath)) return CULTIVATION_PATHS[0];
+  return CULTIVATION_PATHS.find(p=>p.id===G.cultivationPath);
+}
+
 function getExpNeeded(realm,tier){
   if(realm<0||realm>MAX_REALM||tier<0||tier>MAX_TIER) return Infinity;
   return REALMS[realm].exp[tier];
@@ -97,7 +115,11 @@ function getSpiritRoot(){
 
 function getCultivateExpPerClick(){
   const base=5, r=getSpiritRoot(), c=1+(G.caveLevel-1)*0.05, fluct=0.9+Math.random()*0.2;
-  return Math.round(base * r.mult * c * fluct);
+  let exp=base * r.mult * c * fluct;
+  // Path cultivation bonus (Tiên +10%, Ma = 0 — blocked anyway)
+  const path=getCultivationPath();
+  if(path) exp=exp*(path.cultBonus||0);
+  return Math.round(exp);
 }
 
 function getIdleExpPerSecond(){

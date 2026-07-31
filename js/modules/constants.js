@@ -74,3 +74,14 @@ const JADE_SHOP_ITEMS = [
   { id:'jadeExp500', name:'✨ Ngộ Đạo Đan', desc:'+500 EXP ngay', cost:10, currency:'jade', effect:()=>{ addExp(500); } },
   { id:'jadeRootBoost', name:'🌟 Linh Căn Phù (30p)', desc:'+0.2 hệ số linh căn 30 phút', cost:15, currency:'jade', effect:()=>{ G.rootBoostUntil=Math.max(G.rootBoostUntil||0,Date.now()+1800000); addAnnounce('🌟 Linh căn tăng 30 phút!','success'); } },
 ];
+
+// ===== CULTIVATION PATHS =====
+const CULTIVATION_PATHS = [
+  { id:'dao', name:'Tu Đạo', icon:'☯️', desc:'Con đường chính đạo, cân bằng tu luyện và chiến đấu', cultBonus:1.0, huntBonus:1.0, bossBonus:1.0 },
+  { id:'tien', name:'Tu Tiên', icon:'✨', desc:'Con đường tiên đạo, ưu tiên tu luyện', cultBonus:1.1, huntBonus:1.0, bossBonus:1.0 },
+  { id:'ma', name:'Tu Ma', icon:'💀', desc:'Ma đạo, không tu luyện được, chỉ hấp thụ sinh khí từ chiến đấu', cultBonus:0, huntBonus:2.0, bossBonus:3.0 }
+];
+
+// ===== MA PATH SPECIFIC BONUSES =====
+const MA_HUNT_BONUS = 2.0; // EXP and stone multiplier for Ma path hunting
+const MA_BOSS_BONUS = 3.0; // boss damage multiplier for Ma path

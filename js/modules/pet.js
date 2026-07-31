@@ -52,7 +52,57 @@ function attemptRebirth(){
   G.spiritStones=10; G.caveLevel=1; G.petLevel=0; G.petExp=0; G.daoTam=100;
   G.inventory={}; G.bossDefeated=[]; G.bossHp={};
   G.learnedSkills=[]; G.equippedActiveSkill=null;
-  addAnnounce(`♾️♾️ CHUYỂN SINH LẦN ${G.rebirthCount}! Linh căn mạnh hơn!`,'event');
+  G.autoCultivate=false;
+  // Reset done — now let the player choose their cultivation path
+  showPathSelection();
+}
+
+// ===== PATH SELECTION (on rebirth) =====
+function showPathSelection(){
+  // Remove any existing modal
+  const old=document.querySelector('.path-modal-overlay');
+  if(old) old.remove();
+
+  const overlay=document.createElement('div');
+  overlay.className='path-modal-overlay';
+
+  const bonusText=p=>{
+    const parts=[];
+    if(p.cultBonus>0) parts.push(`🧘 Tu luyện +${Math.round((p.cultBonus-1)*100)}%`);
+    else parts.push('🧘 Không tu luyện được');
+    if(p.huntBonus>1) parts.push(`⚔️ Săn ×${p.huntBonus} EXP/💎`);
+    if(p.bossBonus>1) parts.push(`🐉 Boss ×${p.bossBonus} sát thương`);
+    return parts.join(' · ');
+  };
+
+  const options=CULTIVATION_PATHS.map(p=>{
+    const isMa=p.id==='ma';
+    return `<div class="path-option ${p.id==='tien'?'path-tien':''} ${isMa?'path-ma':''}" onclick="selectPath('${p.id}')">
+      <div class="path-icon">${p.icon}</div>
+      <div class="path-name">${p.name}</div>
+      <div class="path-desc">${p.desc}</div>
+      <div class="path-bonus">${bonusText(p)}</div>
+    </div>`;
+  }).join('');
+
+  overlay.innerHTML=`<div class="path-modal">
+    <div class="path-modal-title">♾️ Chọn con đường tu luyện</div>
+    <div class="path-modal-sub">Lần chuyển sinh ${G.rebirthCount} — con đường quyết định lối chơi của bạn</div>
+    <div class="path-options">${options}</div>
+    <div style="font-size:10px;color:#5a6a80;text-align:center;margin-top:10px">💡 Có thể đổi con đường ở lần chuyển sinh tiếp theo</div>
+  </div>`;
+
+  document.body.appendChild(overlay);
+}
+
+function selectPath(pathId){
+  const path=CULTIVATION_PATHS.find(p=>p.id===pathId);
+  if(!path) return;
+  G.cultivationPath=path.id;
+  // Close modal
+  const overlay=document.querySelector('.path-modal-overlay');
+  if(overlay) overlay.remove();
+  addAnnounce(`♾️♾️ CHUYỂN SINH LẦN ${G.rebirthCount}! Chọn con đường ${path.icon} ${path.name}! Linh căn mạnh hơn!`,'event');
   updateUI();
   document.getElementById('rebirthSection').style.display='none';
   saveGame();

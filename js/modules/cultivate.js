@@ -43,6 +43,12 @@ function cultivate(){
   lastCultivateTime=Date.now();
 
   try{
+    // Ma path cannot cultivate — only absorb sinh khí from combat
+    if(G.cultivationPath==='ma'){
+      showToast('❌ Ma tu giả không thể ngồi thi luyện! Hãy đi săn hấp thụ sinh khí!','danger');
+      return;
+    }
+
     let exp=getCultivateExpPerClick();
 
     // Active skill bonus
@@ -86,6 +92,11 @@ function showFloat(exp){
 
 // ===== AUTO/IDLE =====
 function toggleAuto(){
+  // Ma path cannot auto-cultivate (no cultivation at all)
+  if(G.cultivationPath==='ma'){
+    showToast('❌ Ma tu giả không thể tự động tu luyện! Hãy đi săn!','danger');
+    return;
+  }
   G.autoCultivate=!G.autoCultivate;
   document.getElementById('autoToggle').classList.toggle('active',G.autoCultivate);
   saveGame();
@@ -98,6 +109,26 @@ function processIdle(){
     const elapsed=(now - G.lastIdleCalc) / 1000;
     if(elapsed<1) return;
     G.lastIdleCalc=now;
+
+    // Ma path: no idle cultivation — must hunt to absorb sinh khí
+    if(G.cultivationPath==='ma'){
+      // Herb auto gather still works
+      const hElapsed=(now - G.lastHerbGather) / 1000;
+      if(hElapsed>=30){
+        const cycles=Math.floor(hElapsed/30);
+        for(let i=0; i<Math.min(cycles,20); i++){
+          G.herbs+=1+Math.floor(Math.random()*3);
+        }
+        G.lastHerbGather += cycles*30000;
+      }
+      // Pet idle EXP still works
+      if(G.petLevel>0){
+        G.petExp += 0.05 * G.petLevel * (elapsed/60);
+        checkPetLevelUp();
+      }
+      updateUI();
+      return;
+    }
 
     // Idle EXP (60-70% of active)
     const rate=getIdleExpPerSecond();

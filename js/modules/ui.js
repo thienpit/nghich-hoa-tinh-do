@@ -43,8 +43,18 @@ function updateUI(){
     document.getElementById('spiritStones').textContent=G.spiritStones;
     document.getElementById('jade').textContent=G.jade;
 
+    // Cultivation path display (header + realm badge)
+    const path=getCultivationPath();
+    const headerPath=document.getElementById('headerPathDisplay');
+    if(headerPath) headerPath.textContent=`${path.icon} ${path.name}`;
+    const pathBadge=document.getElementById('pathBadge');
+    if(pathBadge){
+      pathBadge.textContent=`${path.icon} ${path.name}`;
+      pathBadge.className='path-badge'+(path.id==='ma'?' path-ma':(path.id==='tien'?' path-tien':''));
+    }
+
     // Realm
-    document.getElementById('realmName').textContent=REALMS[G.realm].name+(G.rebirthCount>0?` (${G.rebirthCount}× CS)`:'');
+    document.getElementById('realmName').textContent=getRealmLabel()+(G.rebirthCount>0?` (${G.rebirthCount}× CS)`:'');
     document.getElementById('tierDisplay').textContent=G.tier+1;
 
     // EXP — show overflow indicator when capped at T9/T10
@@ -71,10 +81,32 @@ function updateUI(){
     }
 
     // Cultivate info
+    const isMa=G.cultivationPath==='ma';
     const root=getSpiritRoot();
     document.getElementById('spiritRoot').textContent=`${root.name}×${root.mult.toFixed(1)}${G.rootBoostUntil>Date.now()?' 🌟':''}`;
-    document.getElementById('clickExp').textContent=getCultivateExpPerClick();
+    const clickExpEl=document.getElementById('clickExp');
+    if(clickExpEl) clickExpEl.textContent=getCultivateExpPerClick();
     document.getElementById('idleRateLabel').textContent=Math.round(getIdleExpPerSecond()*60);
+
+    // Ma path: block cultivation UI — red warning, disabled button, hide auto toggle
+    const maWarn=document.getElementById('maPathWarning');
+    if(maWarn) maWarn.style.display=isMa?'block':'none';
+    const cultBtn=document.getElementById('cultivateBtn');
+    if(cultBtn){
+      const sub=cultBtn.querySelector('.sub');
+      if(isMa){
+        cultBtn.classList.add('disabled');
+        cultBtn.setAttribute('disabled','disabled');
+        if(sub) sub.style.display='none';
+      }else{
+        cultBtn.classList.remove('disabled');
+        cultBtn.removeAttribute('disabled');
+        if(sub) sub.style.display='';
+      }
+    }
+    const autoWrap=document.getElementById('autoToggleWrap');
+    if(autoWrap) autoWrap.style.display=isMa?'none':'flex';
+    if(isMa && G.autoCultivate) G.autoCultivate=false;
 
     // Auto toggle
     document.getElementById('autoToggle').classList.toggle('active',G.autoCultivate);
@@ -94,8 +126,9 @@ function updateUI(){
     document.getElementById('areaNameSelected').textContent=area.name;
     document.getElementById('areaEmoji').textContent=area.emoji;
     document.getElementById('areaDescription').textContent=area.desc;
-    document.getElementById('huntExpDisplay').textContent=area.expBase;
-    document.getElementById('huntStoneDisplay').textContent=area.stoneBase;
+    // Show path-boosted hunt rewards in UI (Ma = x2)
+    document.getElementById('huntExpDisplay').textContent=Math.round(area.expBase*path.huntBonus);
+    document.getElementById('huntStoneDisplay').textContent=Math.round(area.stoneBase*path.huntBonus);
     document.getElementById('huntLootDisplay').textContent=Math.round(area.lootChance*100)+'%';
     const eff=Math.pow(0.9, G.huntCountThisHour)*100;
     const dimEl=document.getElementById('huntDiminish');

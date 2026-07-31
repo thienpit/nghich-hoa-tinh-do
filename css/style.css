@@ -145,19 +145,36 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:radial-gradi
 @keyframes floatUp{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-35px)}}
 @keyframes glow{0%,100%{box-shadow:0 0 8px rgba(232,213,163,0.25)}50%{box-shadow:0 0 20px rgba(232,213,163,0.55)}}
 .btn-glow{animation:glow 2s ease-in-out infinite}
-.insufficient{color:#d87a7a;font-size:10px}
-.section-divider{border:none;border-top:1px solid rgba(42,58,90,0.4);margin:12px 0}
-@media(max-width:480px){
-  .header-title{font-size:17px}
-  .realm-name{font-size:22px}
-  .cultivate-btn{width:90px;height:90px;font-size:15px}
-  .cultivate-btn .sub{font-size:10px}
-  .tab-btn{padding:7px 10px;font-size:11px;min-width:50px}
-  .card{padding:12px;border-radius:10px}
-  .currencies{gap:8px;font-size:12px}
-  .realm-display{padding:16px}
-  .btn{padding:6px 16px;font-size:12px}
-  .grid-2,.grid-3,.grid-4,.grid-shop{gap:6px}
-}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,213,163,0.4)}50%{box-shadow:0 0 0 12px rgba(232,213,163,0)}}
+@keyframes floatUp{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-35px)}}
+
+/* ===== CULTIVATION PATH UI ===== */
+.path-badge{display:inline-block;margin-top:6px;padding:3px 14px;border-radius:20px;font-size:12px;font-weight:600;color:#e8d5a3;background:rgba(42,58,90,0.35);border:1px solid rgba(232,213,163,0.25);letter-spacing:0.5px}
+.path-badge.path-ma{color:#d87a7a;background:rgba(58,26,26,0.5);border-color:rgba(216,122,122,0.4);text-shadow:0 0 12px rgba(216,122,122,0.3)}
+.path-badge.path-tien{color:#c58ac5;background:rgba(42,26,58,0.4);border-color:rgba(197,138,197,0.35)}
+.ma-warning{background:linear-gradient(135deg,rgba(138,42,42,0.35),rgba(58,26,26,0.25));border:1px solid rgba(216,122,122,0.5);border-radius:8px;padding:8px 12px;margin-bottom:10px;text-align:center;font-size:13px;font-weight:700;color:#d87a7a;animation:pulseRed 2s ease-in-out infinite}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(216,122,122,0.25)}50%{box-shadow:0 0 0 10px rgba(216,122,122,0)}}
+.cultivate-btn.disabled{border-color:#8a2a2a;background:radial-gradient(circle at 30% 30%,#3a1a1a,#1a0a0a);color:#8a4a4a;cursor:not-allowed;box-shadow:0 4px 24px rgba(10,14,26,0.6),inset 0 0 16px rgba(138,42,42,0.15);opacity:0.75}
+.cultivate-btn.disabled:hover{transform:none;border-color:#8a2a2a;box-shadow:0 0 20px rgba(138,42,42,0.2),inset 0 0 20px rgba(138,42,42,0.12)}
+.cultivate-btn.disabled .sub{color:#7a4a4a}
+
+/* ===== PATH SELECTION MODAL ===== */
+.path-modal-overlay{position:fixed;inset:0;background:rgba(7,10,18,0.85);backdrop-filter:blur(3px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.25s cubic-bezier(0.4,0,0.2,1)}
+.path-modal{background:linear-gradient(145deg,#111827 0%,#1a2540 100%);border:1px solid rgba(232,213,163,0.3);border-radius:14px;padding:20px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 12px 48px rgba(0,0,0,0.7),0 0 24px rgba(232,213,163,0.08)}
+.path-modal-title{font-size:17px;font-weight:700;color:#e8d5a3;text-align:center;margin-bottom:4px;text-shadow:0 0 16px rgba(232,213,163,0.2)}
+.path-modal-sub{font-size:12px;color:#8899b0;text-align:center;margin-bottom:14px}
+.path-options{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:580px){.path-options{grid-template-columns:1fr}}
+.path-option{background:#0a0e1a;border:1px solid rgba(42,58,90,0.6);border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.25s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;gap:4px}
+.path-option:hover{transform:translateY(-2px);border-color:rgba(122,216,160,0.5);box-shadow:0 6px 20px rgba(10,14,26,0.6)}
+.path-option .path-icon{font-size:30px}
+.path-option .path-name{font-size:15px;font-weight:700;color:#e8d5a3}
+.path-option .path-desc{font-size:11px;color:#5a6a80;line-height:1.4;flex:1}
+.path-option .path-bonus{font-size:10px;color:#7ad8a0;line-height:1.5}
+.path-option.path-ma{border-color:rgba(138,42,42,0.6)}
+.path-option.path-ma:hover{border-color:rgba(216,122,122,0.7);box-shadow:0 6px 20px rgba(138,42,42,0.25)}
+.path-option.path-ma .path-name{color:#d87a7a}
+.path-option.path-ma .path-bonus{color:#d87a7a}
+.path-option.path-tien .path-name{color:#c58ac5}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,213,163,0.4)}50%{box-shadow:0 0 0 12px rgba(232,213,163,0)}}
 @keyframes floatUp{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-35px)}}

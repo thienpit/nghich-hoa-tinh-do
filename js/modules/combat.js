@@ -29,6 +29,10 @@ function huntMonster(){
     const area=getCurrentArea();
     let exp=area.expBase;
 
+    // Path hunt bonus (Ma = x2 EXP & stones)
+    const path=getCultivationPath();
+    if(path && path.huntBonus && path.huntBonus!==1) exp=Math.round(exp*path.huntBonus);
+
     // Skill bonus
     const sk=getEquippedSkill();
     if(sk && sk.bonusExp && now>G.skillCooldown)
@@ -42,6 +46,8 @@ function huntMonster(){
     if(exp<1) exp=1;
 
     let stone=area.stoneBase;
+    // Path hunt bonus applies to stones too (Ma = x2)
+    if(path && path.huntBonus && path.huntBonus!==1) stone=Math.round(stone*path.huntBonus);
     if(sk && sk.bonusStone && now>G.skillCooldown)
       stone=Math.round(stone*(1+sk.bonusStone));
     else if(sk && sk.bonusAll && now>G.skillCooldown)
@@ -123,6 +129,9 @@ function fightBoss(){
     G.lastBossFight=now;
 
     let dmg=10+G.realm*5;
+    // Path boss bonus (Ma = x3 damage)
+    const path=getCultivationPath();
+    if(path && path.bossBonus && path.bossBonus!==1) dmg=Math.round(dmg*path.bossBonus);
     if(hasPassive('passiveBoss')) dmg=Math.round(dmg*1.15);
     const sk=getEquippedSkill();
     if(sk && sk.bonusAll && now>G.skillCooldown){
