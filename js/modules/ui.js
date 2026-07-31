@@ -126,6 +126,10 @@ function updateUI(){
     document.getElementById('areaNameSelected').textContent=area.name;
     document.getElementById('areaEmoji').textContent=area.emoji;
     document.getElementById('areaDescription').textContent=area.desc;
+    // Update path selector buttons active state
+    document.querySelectorAll('.path-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.path === G.cultivationPath);
+    });
     // Show path-boosted hunt rewards in UI (Ma = x2)
     document.getElementById('huntExpDisplay').textContent=Math.round(area.expBase*path.huntBonus);
     document.getElementById('huntStoneDisplay').textContent=Math.round(area.stoneBase*path.huntBonus);
@@ -317,6 +321,8 @@ function init(){
     if(!loadGame()){
       G=defaultState();
       console.log('🆕 New game created');
+      // Force path selection for new users
+      setTimeout(showPathSelection, 500);
     }
 
     G.lastIdleCalc=Date.now();

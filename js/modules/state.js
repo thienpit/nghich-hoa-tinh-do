@@ -22,6 +22,7 @@ function defaultState() {
     lastHerbGather:Date.now(),
     startTime:Date.now(),
     autoCultivate:false,
+    cultivationPath:null,
     daoTam:100,
     savedRealmExp:0,
     totalRealmExp:0,
@@ -37,8 +38,6 @@ function defaultState() {
     achievements:[],
     // Shop extras
     rootBoostUntil:0,   // timestamp for temporary root boost
-    // Cultivation path (Tu Đạo default)
-    cultivationPath:'dao',
   };
 }
 
@@ -79,6 +78,20 @@ function getRealmLabel(){
   if(G.cultivationPath==='ma') return `💀 ${base} (Ma Đạo)`; // path-specific label
   if(G.cultivationPath==='tien') return `✨ ${base} (Tiên Đạo)`;
   return `☯️ ${base} (Chính Đạo)`;
+}
+
+function switchCultivationPath(newPathId) {
+  if(G.cultivationPath === newPathId) return;
+  const path = CULTIVATION_PATHS.find(p=>p.id===newPathId);
+  if(!path) return;
+  
+  // Ma path logic switch: check for auto-cultivate
+  if(newPathId === 'ma') G.autoCultivate = false;
+  
+  G.cultivationPath = newPathId;
+  addAnnounce(`🔄 Chuyển sang con đường ${path.icon} ${path.name}!`,'event');
+  updateUI();
+  saveGame();
 }
 
 // ===== CULTIVATION PATH HELPERS =====
