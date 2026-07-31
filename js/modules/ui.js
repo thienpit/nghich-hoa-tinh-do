@@ -1,3 +1,19 @@
+// ===== BATTLE LOG =====
+function addBattleLog(text, type='info') {
+  try {
+    const c = document.getElementById('battleLogContent');
+    if (!c) return;
+    const el = document.createElement('div');
+    el.className = 'battle-log-entry bl-' + type;
+    const t = new Date().toLocaleTimeString();
+    el.innerHTML = `<span class="bl-time">[${t}]</span> <span class="bl-text">${text}</span>`;
+    c.prepend(el);
+    while (c.children.length > 50) c.removeChild(c.lastChild);
+  } catch (e) {
+    console.error('addBattleLog error:', e);
+  }
+}
+
 // ===== ANNOUNCEMENTS =====
 const MAX_ANNOUNCE=6;
 
@@ -166,6 +182,8 @@ function updateUI(){
 
     // Skills
     renderSkills();
+    renderQuests();
+    renderEquipment();
 
     // Pills
     renderPillGrid();
@@ -274,6 +292,102 @@ function renderPillInventory(){
       <button class="btn btn-sm btn-success" style="margin-top:4px;width:100%" onclick="usePill('${p.id}')" ${c>0?'':'disabled'}>+${p.expVal} EXP</button>`;
     d.appendChild(el);
   });
+}
+
+// ===== QUESTS =====
+function renderQuests(){
+  const g=document.getElementById('questGrid');
+  if(!g) return;
+  g.innerHTML='';
+  (G.quests||[]).forEach(q=>{
+    const done=q.check(G);
+    const div=document.createElement('div');
+    div.className='quest-card'+(done?' quest-done':'')+(q.claimed?' quest-claimed':'');
+    div.innerHTML=`<div class="quest-info">
+      <div class="quest-name">${q.name}</div>
+      <div class="quest-desc">${q.desc}</div>
+      <div class="quest-reward">🔮 +${q.reward.jade} Tiên Ngọc</div>
+    </div>
+    <div>${q.claimed?'✅ Đã nhận':(done?`<button class="btn btn-sm btn-gold" onclick="claimQuest('${q.id}')">Nhận</button>`:'⏳ Chưa đạt')}</div>`;
+    g.appendChild(div);
+  });
+}
+
+function claimQuest(id){
+  const q=G.quests.find(x=>x.id===id);
+  if(!q||q.claimed) return;
+  if(!q.check(G)) return;
+  q.claimed=true;
+  G.jade+=q.reward.jade;
+  showToast(`✅ Nhận ${q.reward.jade} 🔮 từ "${q.name}"!`,'success');
+  updateUI();
+}
+
+// ===== EQUIPMENT =====
+function renderEquipment(){
+  const slotsEl=document.getElementById('equipSlots');
+  const itemsEl=document.getElementById('equipItems');
+  if(!slotsEl) return;
+  slotsEl.innerHTML='';
+  EQUIPMENT_SLOTS.forEach(slot=>{
+    const equipped=G.equipped[slot.id];
+    const item=equipped?EQUIPMENT_ITEMS.find(i=>i.id===equipped):null;
+    const div=document.createElement('div');
+    div.className='equip-slot'+(item?'':' empty');
+    div.innerHTML=`<div class="equip-icon">${slot.icon}</div>
+      <div class="equip-name">${item?item.name:slot.name}</div>
+      ${item?`<div class="equip-stat">${item.desc}</div>`:'<div class="equip-stat" style="color:#5a6a80">Trống</div>'}`;
+    div.onclick=()=>showEquipMenu(slot.id);
+    slotsEl.appendChild(div);
+  });
+}
+
+let _equipMenuOpen=false;
+function showEquipMenu(slotId){
+  if(_equipMenuOpen) return;
+  _equipMenuOpen=true;
+  const itemsEl=document.getElementById('equipItems');
+  if(!itemsEl){ _equipMenuOpen=false; return; }
+  itemsEl.innerHTML='';
+  const slot=EQUIPMENT_SLOTS.find(s=>s.id===slotId);
+  const available=EQUIPMENT_ITEMS.filter(i=>i.slot===slotId);
+  const closeBtn=document.createElement('div');
+  closeBtn.style.cssText='text-align:center;margin:8px 0';
+  closeBtn.innerHTML=`<button class="btn btn-sm btn-outline" onclick="document.getElementById('equipItems').innerHTML='';_equipMenuOpen=false;">✕ Đóng</button>`;
+  itemsEl.appendChild(closeBtn);
+  available.forEach(item=>{
+    const owned=G.ownedEquipment.includes(item.id);
+    const isEquipped=G.equipped[slotId]===item.id;
+    const div=document.createElement('div');
+    div.className='shop-card';
+    div.innerHTML=`<div class="shop-name">${item.name}</div>
+      <div class="shop-desc">${item.desc}</div>
+      <div class="shop-price shop-price-jade">🔮 ${item.cost}</div>
+      <div style="display:flex;gap:4px;margin-top:4px">
+        ${isEquipped?`<button class="btn btn-sm btn-outline" disabled>Đang mặc</button>`
+          :owned?`<button class="btn btn-sm btn-jade" onclick="equipItem('${item.id}','${slotId}')">Mặc</button>`
+          :`<button class="btn btn-sm btn-primary" onclick="buyEquip('${item.id}')" ${G.jade>=item.cost?'':'disabled'}>Mua</button>`}
+      </div>`;
+    itemsEl.appendChild(div);
+  });
+}
+
+function equipItem(itemId, slotId){
+  if(!G.ownedEquipment.includes(itemId)) return;
+  G.equipped[slotId]=itemId;
+  _equipMenuOpen=false;
+  document.getElementById('equipItems').innerHTML='';
+  showToast(`✅ Đã trang bị ${EQUIPMENT_ITEMS.find(i=>i.id===itemId).name}`,'success');
+  updateUI();
+}
+
+function buyEquip(itemId){
+  const item=EQUIPMENT_ITEMS.find(i=>i.id===itemId);
+  if(!item||G.jade<item.cost) return;
+  if(G.ownedEquipment.includes(itemId)) return;
+  G.jade-=item.cost;
+  G.ownedEquipment.push(itemId);
+  equipItem(itemId, item.slot);
 }
 
 // ===== TABS =====

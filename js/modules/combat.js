@@ -86,7 +86,7 @@ function huntMonster(){
       lootMsg+=` 🌿+${h} dược`;
     }
 
-    addAnnounce(`⚔️ Săn ${area.name}! +${exp} EXP +${stone}💎${lootMsg}`+(petBonus?` 🐉+${petBonus}`:''),'info');
+    addBattleLog(`⚔️ Săn ${area.name}! +${exp} EXP +${stone}💎${lootMsg}`+(petBonus?` 🐉+${petBonus}`:''),'win');
     addExp(exp+petBonus);
 
     // Skill cooldown (per-skill)
@@ -157,11 +157,11 @@ function fightBoss(){
       G.bossDefeated.push(G.currentArea);
       const jadeReward=1+Math.floor(Math.random()*5);
       G.jade+=jadeReward;
-      addAnnounce(`🏆🎉 ĐÁNH BẠI ${boss.name}! Nhận +${expReward} EXP +${stoneReward}💎 +${jadeReward}🔮!`,'event');
+      addBattleLog(`🏆🎉 ĐÁNH BẠI ${boss.name}! Nhận +${expReward} EXP +${stoneReward}💎 +${jadeReward}🔮!`, 'boss');
       addExp(expReward);
     }else{
       const hpPct=Math.round(boss.hp/boss.maxHp*100);
-      addAnnounce(`⚔️ Đánh ${boss.name}: -${dmg} HP (còn ${hpPct}%)!`,'danger');
+      addBattleLog(`⚔️ Đánh ${boss.name}: -${dmg} HP (còn ${hpPct}%)!`, 'dmg');
     }
     updateUI();
   }catch(e){
