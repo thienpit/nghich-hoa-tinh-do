@@ -112,6 +112,8 @@ function toggleAuto(){
   }
   G.autoCultivate=!G.autoCultivate;
   document.getElementById('autoToggle').classList.toggle('active',G.autoCultivate);
+  const btn=document.getElementById('cultivateBtn');
+  if(btn) btn.classList.toggle('auto-active',G.autoCultivate);
   saveGame();
 }
 

@@ -65,7 +65,7 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:radial-gradi
 .btn-outline:hover{background:#111827;border-color:#4a6a8a;color:#e0dcd0}
 .btn-shop{background:linear-gradient(135deg,#1a3a2a,#3a6a4a);color:#fff;box-shadow:0 4px 14px rgba(26,58,42,0.35)}
 .btn-shop:hover{background:linear-gradient(135deg,#2a4a3a,#4a7a5a);box-shadow:0 6px 18px rgba(26,58,42,0.45)}
-.cultivate-area{text-align:center;padding:16px}
+.cultivate-area{text-align:center;padding:16px;position:relative;overflow:visible}
 .cultivate-btn{width:120px;height:120px;border-radius:50%;border:2px solid #7ad8a0;background:radial-gradient(circle at 30% 30%,#1a2540,#0a0e1a);color:#e8d5a3;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(10,14,26,0.6),inset 0 0 16px rgba(122,216,160,0.1)}
 .cultivate-btn:hover{transform:scale(1.05);border-color:#a8f0cc;box-shadow:0 0 36px rgba(122,216,160,0.3),inset 0 0 20px rgba(122,216,160,0.15)}
 .cultivate-btn:active{transform:scale(0.95)}
@@ -198,3 +198,66 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:radial-gradi
 .path-btn.active{border-color:#7ad8a0;color:#e8d5a3;background:linear-gradient(135deg,rgba(122,216,160,0.12),rgba(122,216,160,0.04));box-shadow:0 0 8px rgba(122,216,160,0.15)}
 .path-btn[data-path="ma"].active{border-color:#d87a7a;color:#e88;background:linear-gradient(135deg,rgba(216,122,122,0.12),rgba(216,122,122,0.04));box-shadow:0 0 8px rgba(216,122,122,0.15)}
 .path-btn[data-path="tien"].active{border-color:#c58ac5;color:#e8d5a3;background:linear-gradient(135deg,rgba(197,138,197,0.12),rgba(197,138,197,0.04));box-shadow:0 0 8px rgba(197,138,197,0.15)}
+
+/* ===== PARTICLE CANVAS ===== */
+#particleCanvas {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== GLOW/PULSE EFFECTS ===== */
+@keyframes realmGlow {
+  0%, 100% { text-shadow: 0 0 20px rgba(122,216,160,0.15); }
+  50% { text-shadow: 0 0 35px rgba(122,216,160,0.35), 0 0 60px rgba(122,216,160,0.1); }
+}
+.realm-name { animation: realmGlow 3s ease-in-out infinite; }
+
+.card { transition: all 0.3s ease; }
+.card:hover { box-shadow: 0 4px 20px rgba(10,14,26,0.5), 0 0 15px rgba(122,216,160,0.08); }
+
+@keyframes autoPulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(10,14,26,0.6), inset 0 0 16px rgba(122,216,160,0.1); }
+  50% { box-shadow: 0 4px 32px rgba(122,216,160,0.3), inset 0 0 24px rgba(122,216,160,0.2); }
+}
+.cultivate-btn.auto-active {
+  animation: autoPulse 2s ease-in-out infinite;
+  border-color: #a8f0cc;
+}
+
+@keyframes bossReadyPulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(10,14,26,0.3); }
+  50% { box-shadow: 0 4px 20px rgba(216,122,122,0.3), 0 0 15px rgba(216,122,122,0.1); }
+}
+.boss-area.ready { animation: bossReadyPulse 2s ease-in-out infinite; }
+
+/* ===== BATTLE LOG ===== */
+.battle-log { background: #0a0e1a; border: 1px solid rgba(42,58,90,0.5); border-radius: 12px; padding: 10px; margin-top: 10px; }
+.battle-log-title { font-size: 13px; font-weight: 600; color: #e8d5a3; margin-bottom: 6px; }
+.battle-log-content { max-height: 160px; overflow-y: auto; font-family: 'Consolas', monospace; font-size: 11px; }
+.battle-log-entry { padding: 3px 0; border-bottom: 1px solid rgba(42,58,90,0.2); display: flex; gap: 6px; }
+.battle-log-entry .bl-time { color: #5a6a80; flex-shrink: 0; }
+.battle-log-entry .bl-text { color: #8899b0; }
+.battle-log-entry.bl-win .bl-text { color: #7ad8a0; }
+.battle-log-entry.bl-loot .bl-text { color: #e8d5a3; }
+.battle-log-entry.bl-dmg .bl-text { color: #d87a7a; }
+.battle-log-entry.bl-boss .bl-text { color: #e88; }
+
+/* ===== QUEST TAB ===== */
+.quest-card { background: #0a0e1a; border: 1px solid rgba(42,58,90,0.5); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.quest-card .quest-info { flex: 1; }
+.quest-card .quest-name { font-size: 13px; font-weight: 600; color: #e8d5a3; }
+.quest-card .quest-desc { font-size: 11px; color: #5a6a80; margin: 2px 0; }
+.quest-card .quest-reward { font-size: 11px; color: #c58ac5; }
+.quest-card .quest-done { border-color: rgba(122,216,160,0.4); background: rgba(122,216,160,0.05); }
+.quest-card .quest-claimed { opacity: 0.5; }
+
+/* ===== EQUIPMENT ===== */
+.equip-slot { background: #0a0e1a; border: 1px solid rgba(42,58,90,0.5); border-radius: 8px; padding: 10px; text-align: center; transition: all 0.2s; cursor: pointer; }
+.equip-slot:hover { border-color: rgba(122,216,160,0.3); }
+.equip-slot .equip-icon { font-size: 24px; }
+.equip-slot .equip-name { font-size: 12px; color: #e8d5a3; font-weight: 600; margin: 4px 0; }
+.equip-slot .equip-stat { font-size: 10px; color: #7ad8a0; }
+.equip-slot.empty { border-style: dashed; opacity: 0.6; }

@@ -145,8 +145,9 @@ function updateUI(){
 
     // Boss
     const boss=getCurrentBoss();
+    const bossEl=document.getElementById('bossContent');
     if(boss){
-      document.getElementById('bossContent').style.display='block';
+      bossEl.style.display='block';
       document.getElementById('bossName').textContent=boss.name;
       const hpPct=Math.round(boss.hp/boss.maxHp*100);
       document.getElementById('bossHpBar').style.width=hpPct+'%';
@@ -154,11 +155,13 @@ function updateUI(){
       const cdElapsed=Date.now()-G.lastBossFight;
       const bossCd=cdElapsed<5000?Math.ceil((5000-cdElapsed)/1000):0;
       document.getElementById('bossCooldown').textContent=bossCd>0?`${bossCd}s`:'✅ Sẵn sàng';
+      bossEl.classList.toggle('ready',bossCd===0);
     }else{
-      document.getElementById('bossContent').style.display='block';
+      bossEl.style.display='block';
       document.getElementById('bossName').textContent='✅ Đã đánh bại!';
       document.getElementById('bossHpBar').style.width='0%';
       document.getElementById('bossHpCurrent').textContent='0/0';
+      bossEl.classList.remove('ready');
     }
 
     // Skills
