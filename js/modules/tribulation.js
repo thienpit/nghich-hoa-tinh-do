@@ -77,12 +77,17 @@ function scrollToTribulation(){
   if(sec) sec.scrollIntoView({behavior:'smooth'});
 }
 
+// Logic: Higher realm = higher pill req
 function getSmallTribChance(){
-  return Math.min(0.95, 0.75 + (G.pills.tuKhi||0)*0.03);
+  // T8 -> T9 Small trib: Needs Tụ Khí Đan (or higher)
+  let pills = (G.pills.tuKhi||0) + (G.pills.tuNguyen||0)*2 + (G.pills.ngungThan||0)*4;
+  return Math.min(0.95, 0.70 - G.realm*0.05 + pills*0.02);
 }
 
 function getGreatTribChance(){
-  return Math.min(0.95, 0.50 + (G.pills.tuNguyen||0)*0.05 + G.caveLevel*0.01);
+  // T9 -> NextRealm Great trib: Needs Tụ Nguyên Đan (or higher)
+  let pills = (G.pills.tuNguyen||0) + (G.pills.ngungThan||0)*2;
+  return Math.min(0.95, 0.40 - G.realm*0.05 + pills*0.03 + G.caveLevel*0.01);
 }
 
 function renderSmallTrib(){
@@ -90,7 +95,7 @@ function renderSmallTrib(){
   document.getElementById('tribulationType').innerHTML='⚡ <strong>Tiểu Kiếp</strong> — T9 → T10';
   document.getElementById('tribulationChance').textContent=Math.round(c*100);
   document.getElementById('tribulationChanceBar').style.width=(c*100)+'%';
-  document.getElementById('tribulationDetail').textContent=`Cơ sở 75% + ${G.pills.tuKhi||0} Tụ Khí Đan ×3%`;
+  document.getElementById('tribulationDetail').textContent=`Cơ sở ${Math.round((0.70-G.realm*0.05)*100)}% + Đan dược`;
 }
 
 function renderGreatTrib(){
@@ -99,7 +104,7 @@ function renderGreatTrib(){
   document.getElementById('tribulationType').innerHTML='💀 <strong>Đại Kiếp</strong> → '+nextName;
   document.getElementById('tribulationChance').textContent=Math.round(c*100);
   document.getElementById('tribulationChanceBar').style.width=(c*100)+'%';
-  document.getElementById('tribulationDetail').textContent=`Cơ sở 50% + ${G.pills.tuNguyen||0} Đan×5% + Động Phủ Cấp ${G.caveLevel}×1%`;
+  document.getElementById('tribulationDetail').textContent=`Cơ sở ${Math.round((0.40-G.realm*0.05)*100)}% + Đan dược`;
 }
 
 function attemptTribulation(){
@@ -168,17 +173,23 @@ function attemptTribulation(){
 }
 
 function usePillForTribulation(){
-  if(G.tier===8 && (G.pills.tuKhi||0)>0){
-    G.pills.tuKhi--;
-    addAnnounce('💊 Dùng Tụ Khí Đan +3%','info');
+  // T8 Small Trib: Needs Tụ Khí / Tụ Nguyên / Ngưng Thần
+  if(G.tier === 8){
+    if((G.pills.ngungThan||0)>0) { G.pills.ngungThan--; addAnnounce('💊 Dùng Ngưng Thần Đan','info'); }
+    else if((G.pills.tuNguyen||0)>0) { G.pills.tuNguyen--; addAnnounce('💊 Dùng Tụ Nguyên Đan','info'); }
+    else if((G.pills.tuKhi||0)>0) { G.pills.tuKhi--; addAnnounce('💊 Dùng Tụ Khí Đan','info'); }
+    else { addAnnounce('❌ Không có đan phù hợp!','warning'); return; }
     renderSmallTrib();
     saveGame();
-  }else if(G.tier===9 && (G.pills.tuNguyen||0)>0){
-    G.pills.tuNguyen--;
-    addAnnounce('💊 Dùng Tụ Nguyên Đan +5%','info');
+  }
+  // T9 Great Trib: Needs Tụ Nguyên / Ngưng Thần
+  else if(G.tier === 9){
+    if((G.pills.ngungThan||0)>0) { G.pills.ngungThan--; addAnnounce('💊 Dùng Ngưng Thần Đan','info'); }
+    else if((G.pills.tuNguyen||0)>0) { G.pills.tuNguyen--; addAnnounce('💊 Dùng Tụ Nguyên Đan','info'); }
+    else { addAnnounce('❌ Không có đan phù hợp! (Cần Tụ Nguyên trở lên)','warning'); return; }
     renderGreatTrib();
     saveGame();
-  }else{
-    addAnnounce('❌ Không có đan phù hợp! Ghé Đan Dược hoặc Cửa Hàng để mua.','warning');
+  } else {
+    addAnnounce('❌ Không thể dùng đan lúc này!','warning');
   }
 }
