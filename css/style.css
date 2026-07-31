@@ -159,3 +159,5 @@ body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:radial-gradi
   .btn{padding:6px 16px;font-size:12px}
   .grid-2,.grid-3,.grid-4,.grid-shop{gap:6px}
 }
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,213,163,0.4)}50%{box-shadow:0 0 0 12px rgba(232,213,163,0)}}
+@keyframes floatUp{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-35px)}}
