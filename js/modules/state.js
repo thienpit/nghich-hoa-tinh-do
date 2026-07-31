@@ -9,6 +9,8 @@ function defaultState() {
     jade:0,           // Tiên Ngọc (cao cấp)
     herbs:10,
     pills:{ tuKhi:0, tuNguyen:0, ngungThan:0 },
+    pillsUsedForTrib_Small:0,
+    pillsUsedForTrib_Great:0,
     inventory:{},      // item id -> quantity
     totalHunts:0,
     huntCountThisHour:0,
