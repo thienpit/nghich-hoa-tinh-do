@@ -370,5 +370,28 @@ function init(){
   }
 }
 
+// ===== TOOLTIP SYSTEM =====
+function showTooltip(e, text) {
+  const tip = document.getElementById('tooltip');
+  if(!tip || !text) return;
+  tip.textContent = text;
+  tip.style.display = 'block';
+  tip.style.left = Math.min(e.clientX + 12, window.innerWidth - 250) + 'px';
+  tip.style.top = (e.clientY - 40) + 'px';
+}
+
+function hideTooltip() {
+  const tip = document.getElementById('tooltip');
+  if(tip) tip.style.display = 'none';
+}
+
+document.addEventListener('mousemove', function(e) {
+  const tip = document.getElementById('tooltip');
+  if(tip && tip.style.display === 'block') {
+    tip.style.left = Math.min(e.clientX + 12, window.innerWidth - 250) + 'px';
+    tip.style.top = (e.clientY - 40) + 'px';
+  }
+});
+
 // ===== START GAME =====
 init();

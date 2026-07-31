@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<body>
 
 <div class="header">
   <div class="header-top">
@@ -18,7 +19,6 @@
   </div>
   <div class="header-sub">
     <span>⏱ <span id="playTime">00:00:00</span></span>
-    <span>🛡️ <span id="headerPathDisplay">☯️ Tu Đạo</span></span>
     <span>💾 <span id="saveStatus">Đã lưu</span></span>
     <span id="vercelNotice" style="display:none;color:#4a5a6a">🌐 Lưu offline</span>
   </div>
@@ -70,7 +70,6 @@
   <div class="panel active" id="panel-cultivate">
     <div class="card">
       <div class="card-title">🧘 Đả tọa tu luyện</div>
-      <div id="maPathWarning" class="ma-warning" style="display:none">⚠️ Ma tu giả: Không thể tu luyện! Hãy đi săn!</div>
       <div class="cultivate-area">
         <button class="cultivate-btn" id="cultivateBtn" onclick="cultivate()">
           ☯ Tu Luyện <span class="sub">+<span id="clickExp">5</span> EXP</span>
@@ -80,7 +79,7 @@
           <div>🎯 <span id="spiritRoot">Trung bình</span></div>
           <div>🌀 <span id="idleRateLabel">0</span> EXP/ph</div>
         </div>
-        <div class="toggle-wrap" id="autoToggleWrap">
+        <div class="toggle-wrap">
           <div class="toggle" id="autoToggle" onclick="toggleAuto()"></div>
           <span class="toggle-label">Tự động tu luyện</span>
         </div>
@@ -239,6 +238,7 @@
 
 <div class="save-indicator" id="saveIndicator">⏺ Đã lưu</div>
 
+<div id="tooltip" class="tooltip"></div>
 <script src="js/modules/constants.js"></script>
 <script src="js/modules/state.js"></script>
 <script src="js/modules/cultivate.js"></script>
