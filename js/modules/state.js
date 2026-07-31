@@ -77,7 +77,12 @@ function loadGame(){
       // Backward compat: equipment & quests
       if(!G.equipped || typeof G.equipped!=='object') G.equipped={ weapon:null, armor:null, accessory:null };
       if(!Array.isArray(G.ownedEquipment)) G.ownedEquipment=[];
-      if(!Array.isArray(G.quests) || G.quests.length!==QUESTS.length) G.quests=JSON.parse(JSON.stringify(QUESTS));
+      // Restore quest functions (since JSON.parse kills them)
+      if (Array.isArray(G.quests)) {
+        G.quests.forEach((q, i) => {
+          if (QUESTS[i]) q.check = QUESTS[i].check;
+        });
+      }
       console.log('✅ Loaded save. Realm:',REALMS[G.realm].name,'Tier:',G.tier+1,'EXP:',G.exp);
       return true;
     }
