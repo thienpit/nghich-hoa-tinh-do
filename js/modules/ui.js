@@ -488,25 +488,77 @@ function init(){
 }
 
 // ===== TOOLTIP SYSTEM =====
-function showTooltip(e, text) {
+function showTooltip(e, html) {
   const tip = document.getElementById('tooltip');
-  if(!tip || !text) return;
-  tip.textContent = text;
+  if(!tip || !html) return;
+  tip.innerHTML = html;
+  tip.className = 'tooltip';
   tip.style.display = 'block';
-  tip.style.left = Math.min(e.clientX + 12, window.innerWidth - 250) + 'px';
-  tip.style.top = (e.clientY - 40) + 'px';
+  // Position: right side if space, else left side
+  const tooltipWidth = 260;
+  const cursorX = e.clientX;
+  const cursorY = e.clientY;
+  let left, top;
+  if(cursorX + tooltipWidth + 20 > window.innerWidth) {
+    // Not enough space on right, place to left
+    left = cursorX - tooltipWidth - 20;
+  } else {
+    left = cursorX + 12;
+  }
+  top = cursorY - 40;
+  if(top < 8) top = 8;
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
+}
+
+function showTooltipAt(e, html, className) {
+  const tip = document.getElementById('tooltip');
+  if(!tip || !html) return;
+  tip.innerHTML = html;
+  // Reset to base class, then add optional class
+  tip.className = 'tooltip' + (className ? ' ' + className : '');
+  tip.style.display = 'block';
+  // Position: right side if space, else left side
+  const tooltipWidth = 260;
+  const cursorX = e.clientX;
+  const cursorY = e.clientY;
+  let left, top;
+  if(cursorX + tooltipWidth + 20 > window.innerWidth) {
+    // Not enough space on right, place to left
+    left = cursorX - tooltipWidth - 20;
+  } else {
+    left = cursorX + 12;
+  }
+  top = cursorY - 40;
+  if(top < 8) top = 8;
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
 }
 
 function hideTooltip() {
   const tip = document.getElementById('tooltip');
-  if(tip) tip.style.display = 'none';
+  if(tip) {
+    tip.style.display = 'none';
+    tip.className = 'tooltip';
+  }
 }
 
 document.addEventListener('mousemove', function(e) {
   const tip = document.getElementById('tooltip');
   if(tip && tip.style.display === 'block') {
-    tip.style.left = Math.min(e.clientX + 12, window.innerWidth - 250) + 'px';
-    tip.style.top = (e.clientY - 40) + 'px';
+    const tooltipWidth = 260;
+    const cursorX = e.clientX;
+    const cursorY = e.clientY;
+    let left, top;
+    if(cursorX + tooltipWidth + 20 > window.innerWidth) {
+      left = cursorX - tooltipWidth - 20;
+    } else {
+      left = cursorX + 12;
+    }
+    top = cursorY - 40;
+    if(top < 8) top = 8;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
   }
 });
 

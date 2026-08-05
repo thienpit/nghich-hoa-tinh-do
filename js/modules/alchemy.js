@@ -59,3 +59,66 @@ function useItem(id){
   }
   updateUI();
 }
+
+// ===== TOOLTIP ATTACHMENTS =====
+function attachGridTooltips(){
+  try{
+    if(typeof showTooltip!=='function') return;
+    // Pill cards (Luyện đan grid)
+    const pg=document.getElementById('pillGrid');
+    if(pg){
+      pg.querySelectorAll('.item-card').forEach(d=>{
+        const p=PILL_TYPES.find(x=>x.name===d.querySelector('.item-name').textContent);
+        if(!p) return;
+        const rate=Math.min(0.95, p.successRate + (G.caveLevel-1)*0.03);
+        d.onmouseover=(e)=>showTooltip(e,
+          '<div><b style="color:'+p.color+'">'+p.name+'</b></div>'+
+          '<div style="color:#8899b0">'+p.desc+'</div>'+
+          '<div>💊 Giá trị: +'+p.expVal+' EXP</div>'+
+          '<div>🌿 Chi phí: '+p.herbCost+' linh dược</div>'+
+          '<div>🔥 Tỉ lệ thành công: '+Math.round(rate*100)+'%</div>'+
+          (G.realm<p.minRealm?'<div style="color:#d87a7a">🔒 Cần '+REALMS[p.minRealm].name+'</div>':'')
+        );
+        d.onmouseout=hideTooltip;
+      });
+    }
+    // Inventory items (Kho đồ grid)
+    const ig=document.getElementById('inventoryGrid');
+    if(ig){
+      ig.querySelectorAll('.item-card').forEach(d=>{
+        const nameEl=d.querySelector('.item-name');
+        if(!nameEl) return;
+        if(nameEl.textContent==='Trống') return;
+        const item=LOOT_ITEMS.find(x=>x.name===nameEl.textContent);
+        if(!item) return;
+        d.onmouseover=(e)=>showTooltip(e,
+          '<div><b style="color:#7ad8a0">'+item.name+'</b></div>'+
+          '<div style="color:#8899b0">'+item.desc+'</div>'+
+          (item.expVal?'<div>💊 Dùng được: +'+item.expVal+' EXP</div>':'<div style="color:#5a6a80">Vật liệu — dùng để giao dịch</div>')
+        );
+        d.onmouseout=hideTooltip;
+      });
+    }
+  }catch(e){ console.error('alchemy tooltip attach error:',e); }
+}
+
+// Re-attach after every re-render (updateUI rebuilds these grids)
+try{
+  const _attachAlchemy=()=>{
+    attachGridTooltips();
+    const gatherBtn=document.querySelector('button[onclick="gatherHerbs()"]');
+    if(gatherBtn){
+      gatherBtn.onmouseover=(e)=>showTooltip(e,'<div><b>🌿 Hái linh dược</b></div><div style="color:#8899b0">Hái linh dược về luyện đan (tối đa theo động phủ)</div><div>🎲 Nhận 1-4 linh dược mỗi lần, hồi chiêu 10 giây</div>');
+      gatherBtn.onmouseout=hideTooltip;
+    }
+    const pillGrid=document.getElementById('pillGrid');
+    const invGrid=document.getElementById('inventoryGrid');
+    if(pillGrid && invGrid && typeof MutationObserver==='function'){
+      const obs=new MutationObserver(()=>attachGridTooltips());
+      obs.observe(pillGrid,{childList:true});
+      obs.observe(invGrid,{childList:true});
+    }
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',_attachAlchemy);
+  else _attachAlchemy();
+}catch(e){ console.error('alchemy tooltip init error:',e); }

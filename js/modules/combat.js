@@ -10,6 +10,15 @@ function renderAreas(){
     div.className='area-card'+(active?' active':'')+(unlocked?'':' locked');
     div.innerHTML=`<div class="area-name">${a.emoji} ${a.name}</div>
       <div class="area-info">${a.desc} • Cần ${REALMS[Math.min(a.minRealm,MAX_REALM)].name}</div>`;
+    div.onmouseover=(e)=>showTooltip(e,
+      '<div><b>'+a.emoji+' '+a.name+'</b></div>'+
+      '<div style="color:#8899b0">'+a.desc+'</div>'+
+      (unlocked?'':'<div style="color:#d87a7a">🔒 Cần '+REALMS[Math.min(a.minRealm,MAX_REALM)].name+'</div>')+
+      '<div>⚔️ EXP: '+a.expBase+' · 💎 '+a.stoneBase+'/con</div>'+
+      '<div>📦 Rơi đồ: '+Math.round(a.lootChance*100)+'%</div>'+
+      '<div>🐉 Boss: '+a.bossName+' (HP '+a.bossHp+')</div>'
+    );
+    div.onmouseout=hideTooltip;
     if(unlocked) div.onclick=()=>{ G.currentArea=i; updateUI(); };
     grid.appendChild(div);
   });
@@ -168,3 +177,30 @@ function fightBoss(){
     console.error('fightBoss error:',e);
   }
 }
+
+// ===== TOOLTIP ATTACHMENTS (static DOM elements) =====
+const _attachCombatTips = () => {
+try{
+  const attachTip=(sel,getHtml)=>{
+    const el=document.querySelector(sel);
+    if(!el) return;
+    el.onmouseover=(e)=>showTooltip(e,getHtml());
+    el.onmouseout=hideTooltip;
+  };
+  // Boss area
+  attachTip('#bossContent',()=>{
+    const boss=getCurrentBoss();
+    const a=getCurrentArea();
+    if(!boss) return '<div><b>✅ Đã đánh bại!</b></div><div style="color:#8899b0">Boss của khu '+a.name+' đã bị tiêu diệt. Chọn khu vực khác để thử thách mới.</div>';
+    const hpPct=Math.round(boss.hp/boss.maxHp*100);
+    return '<div><b>🐉 '+boss.name+'</b></div>'+
+      '<div style="color:#8899b0">Thủ lĩnh khu '+a.name+' — cảnh giới '+REALMS[Math.min(a.minRealm,MAX_REALM)].name+'</div>'+
+      '<div>❤️ HP: '+boss.hp+'/'+boss.maxHp+' ('+hpPct+'%)</div>'+
+      '<div>⚔️ Phần thưởng: +'+boss.exp+' EXP · +'+boss.stone+'💎 · 🔮 ngẫu nhiên</div>';
+  });
+  // Hunt button
+  attachTip('button[onclick="huntMonster()"]',()=>'<div><b>⚔️ Săn yêu thú</b></div><div style="color:#8899b0">Săn yêu thú ở khu vực đã chọn (+EXP +Linh Thạch)</div><div>📦 Có thể rơi vật phẩm hoặc linh dược</div><div style="color:#7a5a5a">⚠️ Hiệu suất giảm dần khi săn nhiều trong 1 giờ</div>');
+}catch(e){ console.error('combat tooltip attach error:',e); }
+};
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', _attachCombatTips);
+else _attachCombatTips();

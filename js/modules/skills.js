@@ -34,6 +34,81 @@ function equipSkill(skillId){
   updateUI();
 }
 
+// Helper to build rich skill tooltip HTML
+function buildSkillTooltip(s, opts) {
+  const { owned, equipped, unlocked, onCd, cdLeft } = opts;
+  const icon = s.name.split(' ')[0];
+  const name = s.name;
+  
+  let html = '<div class="tt-header"><div class="tt-icon">' + icon + '</div><div class="tt-title">' + name + '</div></div>';
+  
+  // Subtitle based on type
+  const isPassive = s.cd === undefined || s.cd === 0;
+  if (isPassive) {
+    html += '<div class="tt-subtitle passive">Kỹ năng bị động</div>';
+  } else {
+    html += '<div class="tt-subtitle active">Kỹ năng chủ động</div>';
+  }
+  
+  html += '<div class="tt-desc">' + s.desc + '</div>';
+  
+  html += '<div class="tt-stats">';
+  
+  // Cooldown row (only for active skills)
+  if (!isPassive && s.cd) {
+    html += '<div class="tt-row"><span class="tt-label">⏱ Hồi chiêu</span><span class="tt-value cyan">' + s.cd + 's</span></div>';
+  }
+  
+  // Bonus effects
+  if (s.huntExpBonus) {
+    html += '<div class="tt-row"><span class="tt-label">⚡ Hiệu ứng</span><span class="tt-value gold">+' + (s.huntExpBonus * 100) + '% EXP săn</span></div>';
+  }
+  if (s.idleBonus) {
+    html += '<div class="tt-row"><span class="tt-label">⚡ Hiệu ứng</span><span class="tt-value gold">+' + (s.idleBonus * 100) + '% EXP idle</span></div>';
+  }
+  if (s.tribBonus) {
+    html += '<div class="tt-row"><span class="tt-label">⚡ Hiệu ứng</span><span class="tt-value gold">+' + (s.tribBonus * 100) + '% đột phá</span></div>';
+  }
+  if (s.expMult) {
+    html += '<div class="tt-row"><span class="tt-label">⚡ Hiệu ứng</span><span class="tt-value gold">×' + s.expMult + ' EXP tu luyện</span></div>';
+  }
+  if (s.stoneMult) {
+    html += '<div class="tt-row"><span class="tt-label">⚡ Hiệu ứng</span><span class="tt-value gold">×' + s.stoneMult + ' Linh Thạch</span></div>';
+  }
+  if (s.lootMult) {
+    html += '<div class="tt-row"><span class="tt-label">⚡ Hiệu ứng</span><span class="tt-value gold">×' + s.lootMult + ' rơi đồ</span></div>';
+  }
+  
+  // Cost
+  if (s.stoneCost) {
+    html += '<div class="tt-row"><span class="tt-label">💎 Giá</span><span class="tt-value jade-green">' + s.stoneCost + ' Linh Thạch</span></div>';
+  }
+  
+  // Required realm
+  if (s.minRealm && !unlocked) {
+    html += '<div class="tt-row"><span class="tt-label">🔒 Cần cảnh giới</span><span class="tt-value">' + REALMS[s.minRealm].name + '</span></div>';
+  }
+  
+  html += '</div>';
+  
+  // Status tag
+  if (!unlocked) {
+    html += '<div class="tt-divider"></div><div class="tt-tag locked">🔒 Chưa mở khóa</div>';
+  } else if (!owned) {
+    html += '<div class="tt-divider"></div><div class="tt-tag can-equip">📜 Có thể học</div>';
+  } else if (equipped && onCd) {
+    html += '<div class="tt-divider"></div><div class="tt-tag cooldown">⏳ Hồi chiêu ' + cdLeft + 's</div>';
+  } else if (equipped) {
+    html += '<div class="tt-divider"></div><div class="tt-tag equipped">✅ Đã trang bị</div>';
+  } else if (owned && !isPassive) {
+    html += '<div class="tt-divider"></div><div class="tt-tag can-equip">🔧 Có thể trang bị</div>';
+  } else if (owned && isPassive) {
+    html += '<div class="tt-divider"></div><div class="tt-tag equipped">✅ Đã học</div>';
+  }
+  
+  return html;
+}
+
 function renderSkills(){
   try{
     // Active skills
@@ -47,13 +122,14 @@ function renderSkills(){
       const equipped=G.equippedActiveSkill===s.id;
       const unlocked=G.realm>=s.minRealm;
       const onCd=equipped && (G.skillCooldowns[s.id]||0)>now;
-            const div=document.createElement('div');
-            div.className='skill-card'+(equipped?' equipped':'');
-            div.style.opacity=unlocked?'1':'0.35';
-            div.onmouseover=(e)=>showTooltip(e,s.name+': '+s.desc+' | CD: '+s.cd+'s'+(s.stoneCost?' | Giá: '+s.stoneCost+'💎':''));
-            div.onmouseout=hideTooltip;
+      const cdLeft=skillCooldownRemaining(s.id);
+      const div=document.createElement('div');
+      div.className='skill-card'+(equipped?' equipped':'');
+      div.style.opacity=unlocked?'1':'0.35';
+      div.onmouseover=(e)=>showTooltipAt(e, buildSkillTooltip(s, {owned, equipped, unlocked, onCd, cdLeft}), 'tooltip-skill');
+      div.onmouseout=hideTooltip;
 
-            let btnHtml;
+      let btnHtml;
       if(!owned){
         if(!unlocked){
           btnHtml=`<button class="btn btn-sm btn-outline" disabled>🔒 Cần ${REALMS[s.minRealm].name}</button>`;
@@ -86,6 +162,8 @@ function renderSkills(){
       const div=document.createElement('div');
       div.className='skill-card'+(owned?' equipped':'');
       div.style.opacity=unlocked?'1':'0.35';
+      div.onmouseover=(e)=>showTooltipAt(e, buildSkillTooltip(s, {owned, equipped: owned, unlocked, onCd: false, cdLeft: 0}), 'tooltip-skill');
+      div.onmouseout=hideTooltip;
 
       let btnHtml;
       if(!owned){

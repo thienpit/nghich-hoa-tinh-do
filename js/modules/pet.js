@@ -38,6 +38,46 @@ function checkPetLevelUp(){
   }
 }
 
+// ===== TOOLTIP ATTACHMENTS =====
+try{
+  const _attachPetTips=()=>{
+    if(typeof showTooltip!=='function') return;
+    // Pet card (linh thú)
+    const petCard=document.getElementById('petEmoji');
+    if(petCard){
+      const card=petCard.closest('.card');
+      if(card){
+        card.onmouseover=(e)=>{
+          const idx=Math.min(G.petLevel, PET_NAMES.length-1);
+          const pn=PET_EXP_PER_LEVEL(G.petLevel);
+          const pp=Math.min(100, (G.petExp/pn)*100);
+          const petName=G.petLevel>0?PET_NAMES[idx]:'🥚 Trứng chưa nở';
+          const lvl=G.petLevel>0?('Cấp '+G.petLevel):'Chưa có';
+          showTooltip(e,
+            '<div><b>🐉 '+petName+'</b></div>'+
+            '<div style="color:#8899b0">Linh thú đồng hành giúp tăng EXP khi tu luyện</div>'+
+            '<div>📊 '+lvl+' — '+Math.floor(G.petExp)+'/'+Math.round(pn)+' EXP ('+Math.round(pp)+'%)</div>'+
+            '<div style="color:#5a6a80">🐾 Mỗi cấp cộng thêm 20% EXP khi săn yêu thú</div>'
+          );
+        };
+        card.onmouseout=hideTooltip;
+      }
+    }
+    // Feed button
+    const feedBtn=document.querySelector('button[onclick="feedPet()"]');
+    if(feedBtn){
+      feedBtn.onmouseover=(e)=>showTooltip(e,
+        '<div><b>🍖 Cho ăn</b></div>'+
+        '<div style="color:#8899b0">Cho ăn 5 linh dược để linh thú tăng EXP</div>'+
+        '<div>🎲 Nhận 20-40 EXP linh thú mỗi lần'+(hasPassive('passivePet')?' (kỹ năng 🐉 Linh Thú Thân Cận: x1.2)':'')+'</div>'
+      );
+      feedBtn.onmouseout=hideTooltip;
+    }
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',_attachPetTips);
+  else _attachPetTips();
+}catch(e){ console.error('pet tooltip attach error:',e); }
+
 // ===== REBIRTH =====
 function attemptRebirth(){
   if(G.realm<MAX_REALM || G.tier<MAX_TIER){

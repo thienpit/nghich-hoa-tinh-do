@@ -122,3 +122,51 @@ function usePillForTribulation(){
   }
   saveGame();
 }
+
+// ===== TOOLTIP ATTACHMENTS =====
+try{
+  const _attachTribTips=()=>{
+    if(typeof showTooltip!=='function') return;
+    const tribBox=document.getElementById('tribulationContent');
+    if(tribBox){
+      tribBox.onmouseover=(e)=>{
+        const now=Date.now();
+        const onCooldown=now < _tribCooldownUntil;
+        let html='';
+        if(G.tier===8){
+          const c=getSmallTribChance();
+          html='<div><b>⚡ Tiểu Kiếp</b> — T9 → T10</div>'+
+            '<div style="color:#8899b0">Vượt qua để lên cảnh giới mới</div>'+
+            '<div>🎯 Tỉ lệ thành công: '+Math.round(c*100)+'%</div>'+
+            '<div>💊 Đan đã dùng: '+(G.pillsUsedForTrib_Small||0)+' × +3% mỗi đan</div>';
+        }else if(G.tier===9){
+          const c=getGreatTribChance();
+          const nextName=G.realm<MAX_REALM?REALMS[G.realm+1].name:'???';
+          html='<div><b>💀 Đại Kiếp</b> → '+nextName+'</div>'+
+            '<div style="color:#8899b0">Kiếp nạn lớn nhất, vượt qua để đột phá cảnh giới</div>'+
+            '<div>🎯 Tỉ lệ thành công: '+Math.round(c*100)+'%</div>'+
+            '<div>💊 Đan đã dùng: '+(G.pillsUsedForTrib_Great||0)+' × +5% mỗi đan</div>';
+        }else{
+          html='<div><b>⏳ Đang hồi phục</b></div><div style="color:#8899b0">Thất bại quá nhiều, chờ hết cooldown để thử lại</div>';
+        }
+        if(onCooldown) html+='<div style="color:#d87a7a">⏳ Đang hồi phục sau thất bại</div>';
+        showTooltip(e, html);
+      };
+      tribBox.onmouseout=hideTooltip;
+    }
+    // Đột Phá button
+    const breakBtn=document.querySelector('button[onclick="attemptTribulation()"]');
+    if(breakBtn){
+      breakBtn.onmouseover=(e)=>showTooltip(e,'<div><b>⚡ Đột Phá</b></div><div style="color:#8899b0">Vượt qua kiếp nạn để tăng cảnh giới (thất bại sẽ tụt tầng)</div><div>💥 Thất bại: EXP về 0, tụt 1 tầng, hồi chiêu 10-15 giây</div>');
+      breakBtn.onmouseout=hideTooltip;
+    }
+    // Dùng đan button
+    const pillBtn=document.querySelector('button[onclick="usePillForTribulation()"]');
+    if(pillBtn){
+      pillBtn.onmouseover=(e)=>showTooltip(e,'<div><b>💊 Dùng đan</b></div><div style="color:#8899b0">Dùng đan tăng % thành công</div><div>Tiểu Kiếp: +3% mỗi Tụ Khí/Nguyên Đan · Đại Kiếp: +5% mỗi Tụ Nguyên/Ngưng Thần Đan</div>');
+      pillBtn.onmouseout=hideTooltip;
+    }
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',_attachTribTips);
+  else _attachTribTips();
+}catch(e){ console.error('tribulation tooltip attach error:',e); }

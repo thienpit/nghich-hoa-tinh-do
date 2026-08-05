@@ -1,0 +1,183 @@
+/* ===== RICH TOOLTIP SYSTEM ===== */
+
+.tooltip {
+  position: fixed;
+  background: rgba(17, 24, 39, 0.97);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(122, 216, 160, 0.35);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #c8d0e0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  max-width: 280px;
+  z-index: 1000;
+  pointer-events: none;
+  animation: tooltipIn 0.15s ease-out;
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Per-type theming */
+.tooltip.tooltip-skill {
+  border-color: rgba(232, 213, 163, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 12px rgba(232, 213, 163, 0.15);
+}
+
+.tooltip.tooltip-item {
+  border-color: rgba(122, 216, 160, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 12px rgba(122, 216, 160, 0.15);
+}
+
+.tooltip.tooltip-warning {
+  border-color: rgba(216, 122, 122, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 12px rgba(216, 122, 122, 0.15);
+}
+
+/* Inner elements */
+.tt-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.tt-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.tt-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e8d5a3;
+}
+
+.tt-subtitle {
+  font-size: 11px;
+  color: #8899b0;
+  margin-bottom: 8px;
+}
+
+.tt-subtitle.active {
+  color: #7eb8ff;
+}
+
+.tt-subtitle.passive {
+  color: #c58ac5;
+}
+
+.tt-desc {
+  font-size: 12px;
+  color: #c8d0e0;
+  margin-bottom: 8px;
+}
+
+.tt-stats {
+  margin-bottom: 8px;
+}
+
+.tt-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+
+.tt-label {
+  color: #8899b0;
+}
+
+.tt-value {
+  font-weight: 500;
+}
+
+.tt-value.gold {
+  color: #e8d5a3;
+}
+
+.tt-value.jade {
+  color: #c58ac5;
+}
+
+.tt-value.cyan {
+  color: #7eb8ff;
+  font-family: 'Courier New', monospace;
+}
+
+.tt-value.jade-green {
+  color: #7ad8a0;
+}
+
+.tt-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 8px 0;
+}
+
+.tt-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.tt-tag.equipped {
+  background: rgba(122, 216, 160, 0.2);
+  color: #7ad8a0;
+  border: 1px solid rgba(122, 216, 160, 0.3);
+}
+
+.tt-tag.can-equip {
+  background: rgba(122, 184, 255, 0.15);
+  color: #7eb8ff;
+  border: 1px solid rgba(122, 184, 255, 0.25);
+}
+
+.tt-tag.locked {
+  background: rgba(100, 100, 120, 0.2);
+  color: #6a7a90;
+  border: 1px solid rgba(100, 100, 120, 0.3);
+  text-decoration: line-through;
+}
+
+.tt-tag.cooldown {
+  background: rgba(255, 180, 100, 0.15);
+  color: #ffb464;
+  border: 1px solid rgba(255, 180, 100, 0.25);
+}
+
+.tt-cd {
+  font-family: 'Courier New', monospace;
+  color: #7eb8ff;
+}
+
+.tt-locked {
+  color: #6a7a90;
+  text-decoration: line-through;
+}
+
+.tt-cost-stone {
+  color: #7ad8a0;
+}
+
+.tt-cost-jade {
+  color: #c58ac5;
+}
+
+.tt-effect {
+  font-size: 11px;
+  color: #a8b8c8;
+  font-style: italic;
+  margin-top: 4px;
+}
