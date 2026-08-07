@@ -20,6 +20,7 @@
 </div>
 
 <div id="main-content">
+  <!-- Header -->
   <div class="header">
     <div class="header-top">
       <div class="header-title">☯ Nghịch Hỏa Tinh Đồ</div>
@@ -30,8 +31,11 @@
     </div>
   </div>
 
+  <!-- Panels -->
   <div id="panel-cultivate" class="panel active">
-    <!-- Nội dung Tu Luyện -->
+    <!-- Re-insert original cultivation panel content here -->
+    <div class="realm-display">...</div>
+    <div class="card">...</div>
   </div>
   <div id="panel-adventure" class="panel">...</div>
   <div id="panel-skills" class="panel">...</div>
@@ -47,6 +51,7 @@
 </div>
 
 <script>
+// Keep existing scripts and re-attach UI logic
 function showPanel(tabId) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + tabId).classList.add('active');
