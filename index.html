@@ -9,59 +9,206 @@
 </head>
 <body class="game-main-bg">
 
-<div id="nav-sidebar">
-  <div class="nav-item active" onclick="showPanel('cultivate')">🧘<br>Tu</div>
-  <div class="nav-item" onclick="showPanel('adventure')">🗺️<br>Phiêu</div>
-  <div class="nav-item" onclick="showPanel('skills')">📜<br>Kỹ</div>
-  <div class="nav-item" onclick="showPanel('alchemy')">💊<br>Đan</div>
-  <div class="nav-item" onclick="showPanel('cave')">🏔️<br>Động</div>
-  <div class="nav-item" onclick="showPanel('quests')">📋<br>NV</div>
-  <div class="nav-item" onclick="toggleInventory()">🎒<br>Kho</div>
+<!-- Sidebar Navigation -->
+<nav id="nav-sidebar" class="sidebar">
+    <button class="nav-btn active" data-tab="cultivate">🧘<br>Tu</button>
+    <button class="nav-btn" data-tab="adventure">🗺️<br>Phiêu</button>
+    <button class="nav-btn" data-tab="skills">📜<br>Kỹ</button>
+    <button class="nav-btn" data-tab="alchemy">💊<br>Đan</button>
+    <button class="nav-btn" data-tab="cave">🏔️<br>Động</button>
+    <button class="nav-btn" data-tab="quests">📋<br>NV</button>
+    <button class="nav-btn" onclick="toggleInventory()">🎒<br>Kho</button>
+</nav>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-title">☯ Nghịch Hỏa Tinh Đồ <span>— bản tu tiên</span></div>
+    <div class="currencies" id="currencyDisplay">
+      <div class="currency stone"><span class="icon">💎</span> Linh Thạch: <span class="val" id="spiritStones">0</span></div>
+      <div class="currency jade"><span class="icon">🔮</span> Tiên Ngọc: <span class="val" id="jade">0</span></div>
+    </div>
+  </div>
+  <div class="header-sub">
+    <span>⏱ <span id="playTime">00:00:00</span></span>
+    <span>💾 <span id="saveStatus">Đã lưu</span></span>
+    <span id="vercelNotice" style="display:none;color:#4a5a6a">🌐 Lưu offline</span>
+  </div>
 </div>
 
-<div id="main-content">
-  <!-- Header -->
-  <div class="header">
-    <div class="header-top">
-      <div class="header-title">☯ Nghịch Hỏa Tinh Đồ</div>
-      <div class="currencies" id="currencyDisplay">
-        <div class="currency stone">💎 <span class="val" id="spiritStones">0</span></div>
-        <div class="currency jade">🔮 <span class="val" id="jade">0</span></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="container" id="main-content">
+  <!-- Original Panels -->
+  <!-- ===== REALM DISPLAY ===== -->
+  <div class="realm-display">
+    <div class="realm-name" id="realmName">Luyện Khí</div>
+    <div class="realm-tier" id="realmTierDisplay">Tầng <span id="tierDisplay">1</span> / 10</div>
+    <div class="path-badge" id="pathBadge">☯️ Tu Đạo</div>
+    <div class="path-selector" id="pathSelector">
+      <button class="path-btn active" data-path="dao" onclick="switchCultivationPath('dao')">☯️ Tu Đạo</button>
+      <button class="path-btn" data-path="tien" onclick="switchCultivationPath('tien')">✨ Tu Tiên</button>
+      <button class="path-btn" data-path="ma" onclick="switchCultivationPath('ma')">💀 Tu Ma</button>
+    </div>
+    <div class="exp-section">
+      <div class="exp-label">
+        <span>🔵 Tu vi</span>
+        <span><span id="expCurrent">0</span> / <span id="expNeeded">100</span> EXP</span>
       </div>
+      <div class="exp-bar-wrap">
+        <div class="exp-bar-fill" id="expBar" style="width:0%"></div>
+        <div class="exp-bar-text" id="expBarPct">0%</div>
+      </div>
+      <div id="overflowExp" class="overflow-exp" style="display:none"></div>
+    </div>
+    <div id="floatingBreakthrough" style="display:none;margin-top:10px;text-align:center">
+      <button class="btn btn-gold btn-lg btn-glow" onclick="scrollToTribulation()" style="font-size:16px;padding:12px 30px">
+        ⚡ ĐỘT PHÁ SẴN SÀNG — Kéo xuống để phá kiếp! ⚡
+      </button>
     </div>
   </div>
 
   <!-- Panels -->
-  <div id="panel-cultivate" class="panel active">
-    <!-- Re-insert original cultivation panel content here -->
-    <div class="realm-display">...</div>
-    <div class="card">...</div>
+  <div class="panel active" id="panel-cultivate">
+    <div class="card">
+      <div class="card-title">🧘 Đả tọa tu luyện</div>
+      <div class="cultivate-area">
+        <button class="cultivate-btn" id="cultivateBtn" onclick="cultivate()">
+          ☯ Tu Luyện <span class="sub">+<span id="clickExp">5</span> EXP</span>
+        </button>
+        <canvas id="particleCanvas"></canvas>
+        <div class="cultivate-info">
+          <div>⚡ <span id="cultivateRate">5</span> EXP/lần</div>
+          <div>🎯 <span id="spiritRoot">Trung bình</span></div>
+          <div>🌀 <span id="idleRateLabel">0</span> EXP/ph</div>
+        </div>
+        <div class="toggle-wrap">
+          <div class="toggle" id="autoToggle" onclick="toggleAuto()"></div>
+          <span class="toggle-label">Tự động tu luyện</span>
+        </div>
+      </div>
+    </div>
+    <div id="tribulationSection" style="display:none">
+      <div class="tribulation-box" id="tribulationContent">
+        <div id="tribulationType">⚡ Tiểu Kiếp</div>
+        <div class="chance-bar"><div class="chance-bar-fill" id="tribulationChanceBar" style="width:75%"></div></div>
+        <div class="chance"><span id="tribulationChance">75</span>%</div>
+        <div class="chance-label" id="tribulationDetail">Mỗi Tụ Khí Đan +3%</div>
+        <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+          <button class="btn btn-gold" onclick="attemptTribulation()">⚡ Đột Phá!</button>
+          <button class="btn btn-sm btn-primary" onclick="usePillForTribulation()">💊 Dùng đan</button>
+        </div>
+        <div id="tribFallbackDebug" class="trib-help" style="display:none"></div>
+      </div>
+    </div>
+    <div id="announcements"></div>
   </div>
-  <div id="panel-adventure" class="panel">...</div>
-  <div id="panel-skills" class="panel">...</div>
-  <div id="panel-alchemy" class="panel">...</div>
-  <div id="panel-cave" class="panel">...</div>
-  <div id="panel-quests" class="panel">...</div>
+
+  <div class="panel" id="panel-adventure">
+    <div class="card">
+      <div class="card-title">🗺️ Khu vực phiêu lưu</div>
+      <div class="grid-2" id="areaGrid"></div>
+    </div>
+    <div class="card map-ngoai-o">
+      <div class="card-title">⚔️ Săn yêu thú — <span id="areaNameSelected">Vùng ngoại ô</span></div>
+      <div style="text-align:center;padding:12px;position:relative;z-index:1">
+        <div style="font-size:36px" id="areaEmoji">🌿</div>
+        <div style="font-size:12px;color:#b8c8d8;margin:4px 0" id="areaDescription">Khu vực an toàn, yêu thú yếu</div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:8px 0;font-size:12px">
+          <span>⚔️ EXP: <span id="huntExpDisplay">20</span>/con</span>
+          <span>💎 Linh Thạch: <span id="huntStoneDisplay">2</span>/con</span>
+          <span>📦 Rơi: <span id="huntLootDisplay">5%</span></span>
+        </div>
+        <div style="font-size:11px;color:#7a5a5a;margin-bottom:6px" id="huntDiminish"></div>
+        <button class="btn btn-lg btn-danger" onclick="huntMonster()">⚔️ Săn!</button>
+        <div style="font-size:10px;color:#4a5a6a;margin-top:4px">Đã săn: <span id="totalHunts">0</span> con</div>
+      </div>
+    </div>
+    <div class="card" id="bossSection">
+      <div class="boss-area" id="bossContent">
+        <div>🐉 <span class="boss-name" id="bossName">—</span></div>
+        <div style="font-size:12px;color:#8899b0" id="bossRealm">Yêu thú thủ lĩnh</div>
+        <div class="boss-hp"><div class="boss-hp-fill" id="bossHpBar" style="width:100%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#8899b0">
+          <span>HP: <span id="bossHpCurrent">—</span></span>
+          <span>CD: <span id="bossCooldown">Sẵn sàng</span></span>
+        </div>
+        <button class="btn btn-danger" style="margin-top:8px" onclick="fightBoss()">⚔️ Đánh Boss!</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-skills">
+    <div class="card">
+      <div class="card-title">📜 Kỹ năng tu tiên</div>
+      <div class="grid-2" id="skillGrid"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🛡️ Kỹ năng bị động</div>
+      <div class="grid-2" id="passiveSkillGrid"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-alchemy">
+    <!-- Alchemy content -->
+  </div>
+
+  <div class="panel" id="panel-cave">
+    <!-- Cave content -->
+  </div>
+
+  <div class="panel" id="panel-quests">
+    <!-- Quest content -->
+  </div>
 </div>
 
-<div id="inventory-modal">
-  <div class="card-title">🎒 Kho đồ</div>
-  <div id="inventoryGrid"></div>
-  <button class="btn btn-sm" onclick="toggleInventory()">Đóng</button>
+<!-- Inventory Modal -->
+<div id="inventory-modal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8);">
+    <div class="modal-content" style="background:#111827; margin:15% auto; padding:20px; border:1px solid #888; width:80%; max-width:600px; border-radius:12px;">
+        <span class="close" onclick="toggleInventory()" style="float:right; cursor:pointer; font-size:24px;">&times;</span>
+        <div class="card-title">🎒 Vật phẩm</div>
+        <div class="grid-4" id="inventoryGrid"></div>
+    </div>
 </div>
+
+<div class="save-indicator" id="saveIndicator">⏺ Đã lưu</div>
+<div id="tooltip" class="tooltip"></div>
+
+<script src="js/modules/constants.js"></script>
+<script src="js/modules/state.js"></script>
+<script src="js/modules/cultivate.js"></script>
+<script src="js/modules/tribulation.js"></script>
+<script src="js/modules/combat.js"></script>
+<script src="js/modules/skills.js"></script>
+<script src="js/modules/alchemy.js"></script>
+<script src="js/modules/shop.js"></script>
+<script src="js/modules/pet.js"></script>
+<script src="js/modules/ui.js"></script>
+<script src="js/game.js"></script>
 
 <script>
-// Keep existing scripts and re-attach UI logic
-function showPanel(tabId) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + tabId).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-}
-function toggleInventory() {
-  const modal = document.getElementById('inventory-modal');
-  modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-}
+    // Sidebar logic
+    document.querySelectorAll('.nav-btn[data-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + btn.getAttribute('data-tab')).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+
+    function toggleInventory() {
+        const modal = document.getElementById('inventory-modal');
+        modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    }
 </script>
+
+<style>
+    #nav-sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 70px; background: #0a0e1a; padding-top: 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; border-right: 1px solid #2a3a5a; z-index: 100; }
+    .nav-btn { background: none; border: none; color: #8899b0; cursor: pointer; text-align: center; font-size: 12px; padding: 10px 0; width: 100%; }
+    .nav-btn.active { color: #e8d5a3; background: #1a2540; }
+    #main-content { margin-left: 80px; }
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+</style>
+
 </body>
 </html>
